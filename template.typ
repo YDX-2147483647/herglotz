@@ -29,6 +29,7 @@
   // Set body font family.
   set text(font: body-font, lang: "zh")
   show heading: set text(font: sans-font)
+  show raw: set text(font: ("Fira Code", sans-font))
   set heading(numbering: "1.1")
 
   // Title row.
