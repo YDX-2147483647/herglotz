@@ -1,5 +1,5 @@
 #import "@preview/tablex:0.0.6": tablex, hlinex, vlinex
-#import "@preview/physica:0.8.0": dv
+#import "@preview/physica:0.8.0": dv, Re, Res
 
 #import "template.typ": project, remark, small
 
@@ -47,7 +47,7 @@ $
 #remark[定义域][
   $x in ZZ$ 时，$x + ZZ = ZZ$，$x+n$ 会取到零，不能定义。
 
-  另外其实 $CC without ZZ$ 上也能定义，那样后面的讨论基本也适用。
+  另外其实 $CC without ZZ$ 上也能定义，我们后面会根据需要随意切换两种定义域，尽管用 $RR without ZZ$ 推测 $CC without ZZ$ 并不严谨。
 ]
 
 = 分析
@@ -71,7 +71,9 @@ $
 
 - *极点*
 
-  知道了 $f tilde 1/x$，大胆的人可能会断言：$f$ 已按极点展开为分式之和，显然 $f$ 在 $ZZ$ 的留数都是 $1$，且除此以外无极点。
+  知道了 $f tilde 1/x$，大胆的人可能会断言：$f$ 已按极点展开为分式之和，显然#footnote[
+    本文所有“显然”都是指“已按极点展开为分式之和”。`⚆_⚆`
+  ] $f$ 在 $ZZ$ 的留数都是 $1$，且除此以外无极点。
 
 - *周期*——$f(x+1) = f(x)$
 
@@ -137,7 +139,7 @@ $
 
 合理怀疑 $f$ 是#strong[某种缩放的三角函数]。
 
-== 定量
+== 定量 <sec:quantitative>
 
 1. 根据性状，$f$ 接近 $cot$。
 
@@ -243,6 +245,62 @@ $f$ 大约的确是 $x |-> pi cot(pi x)$ 了。
 #remark[另法][
   利用 $N f(xi) = f(xi/N) + dots.c + f((xi + N-1)/N)$，得到 $f(xi/N) = m$。再令 $N -> +oo$。
 ]
+
+= 复变函数的优良性质
+
+== 三角恒等式
+
+@sec:quantitative 的注推广了递归性质，它用 $cot$ 表示是
+$
+N cot(N theta) = sum_(k=0)^(N-1) cot(theta + (pi k)/N).
+$
+这怎么理解呢？
+
+众所周知，
+$
+sum_(k=0)^(N-1) cos(theta + (2pi k)/N)
+&= Re sum_(k=0)^(N-1) e^(i theta) e^(i (2pi k)/N) \
+&= Re e^(i theta) sum_(k=0)^(N-1) omega^k \
+&= Re e^(i theta) (1 - omega^N) / (1 - omega) \
+&= 0, \
+$
+其中 $N$ 次单位根 $omega = e^(i (2pi)/N)$，$omega^N = 1$。
+
+$cot$ 的恒等式可能类似？
+记 $z = e^(i theta)$，则
+$
+1/i cot theta
+= (cos theta)/(i sin theta)
+= (z + 1\/z)/(z - 1\/z)
+= 1 + 2/(z^2 - 1).
+$
+改记 $z = e^(2 i theta)$，于是 $1/i cot theta = 1 + 2/(z-1)$。进而
+$
+1/i sum_k cot(theta + (pi k)/N)
+= sum_k (1 + 2/(z omega^k - 1))
+= N + 2 sum_k 1/(z omega^k - 1).
+$
+转化为证明
+$
+sum_k 1/(z omega^k - 1)
+attach(=, t: ?) N / (z^N - 1).
+$
+
+从右到左是有理分式的部分分式展开问题。
+
+- RHS 分母有零点 $1, omega, ..., omega^(N-1)$，与 LHS 的极点 $1, omega^(-1), ..., omega^(-k), ..., omega^(1-N)$ 一致。
+- 接着检查各个极点的留数。LHS 在 $omega^k$ 的留数显然#footnote[
+  因为已按极点展开为分式之和。`(⊙_⊙)`
+]是 $omega^k$，RHS 的我们用 L'Hôpital 法则算一下：
+  $
+  Res_(z=omega^k) N/(z^N - 1)
+  &= lim_(z -> omega^k) N(z-omega^k)/(z^N-1) \
+  &= lim_(z -> omega^k) N/(N z^(N-1)) \
+  &= 1/(omega^(k(N-1)))
+  = (omega/omega^N)^k
+  = omega^k.
+  $
+从而得证。
 
 #set heading(numbering: none)
 = 他典等
