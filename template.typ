@@ -28,7 +28,7 @@
   set text(font: body-fonts, lang: "zh")
   show heading: set text(font: sans-fonts)
   show raw: set text(font: ("Fira Code", ..sans-fonts))
-  set heading(numbering: "1.1")
+  set heading(numbering: "1.1", supplement: [§])
 
   // Title row.
   align(center)[
