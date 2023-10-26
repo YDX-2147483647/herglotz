@@ -178,6 +178,16 @@ $
 
 $f$ 大约的确是 $x |-> pi cot(pi x)$ 了。
 
+#remark[递归性质的推广][
+  取 $N in ZZ^+$，则
+  $
+  N f(N x)
+  &= sum_(n in ZZ) 1/(x+n/N) \
+  &= sum_(k=0)^(N-1) sum_(n in n ZZ + k) 1/(x + k/N + ZZ) \
+  &= sum_(k=0)^(N-1) f(x+k/N). \
+  $
+]
+
 = Herglotz trick
 
 现在证明二者严格相等。
@@ -205,8 +215,33 @@ $f$ 大约的确是 $x |-> pi cot(pi x)$ 了。
 
    $g$ 恒非正，由奇，也恒非负，从而必恒零。
 
-#remark[是否必须这么用递归性质][
+#remark[只能这么连用递归性质][
   应用递归性质也能得到 $xi + 1/2$ 和 $2xi$ 处 $g = m$。
+
+  按周期 $1$，只需在 $[0,1)$ 上考虑。
+
+  每应用一次递归性质，能从 $xi$ 推出以下点处 $g$ 也取 $m$：
+  - $xi/2, (xi+1)/2$（下图绿线）
+  - $xi plus.minus 1/2$（下图蓝线）
+  - $2xi, 2xi-1$（下图橙线）
+
+  #figure(
+    image("spider.svg", width: 40%),
+    caption: [蛛网图底板]
+  )
+
+  // Mathematica:
+  // Show@{
+  // Plot[{Mod[x + 1/2, 1], Mod[2 x, 1], (x + {0, 1})/2}, {x, 0, 1},
+  //  GridLines -> Automatic, AspectRatio -> 1],
+  // Plot[x, {x, 0, 1}, PlotStyle -> Directive[Dashed, Gray]]
+  // }
+
+  根据蛛网图的规则（$(xi,xi) |-> (xi, xi') |-> (xi', xi') |-> (xi', xi'') |-> dots.c$），只有 $xi |-> xi/2$ 能走向极限点。
+]
+
+#remark[另法][
+  利用 $N f(xi) = f(xi/N) + dots.c + f((xi + N-1)/N)$，得到 $f(xi/N) = m$。再令 $N -> +oo$。
 ]
 
 #set heading(numbering: none)
