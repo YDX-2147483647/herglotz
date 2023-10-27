@@ -1,5 +1,5 @@
 #import "@preview/tablex:0.0.6": tablex, hlinex, vlinex
-#import "@preview/physica:0.8.0": dd, dv, Re, Im, Res, order, eval
+#import "@preview/physica:0.8.0": dd, dv, Re, Im, Res, order, eval, difference
 
 #import "template.typ": project, remark, small
 
@@ -318,7 +318,7 @@ $
 2. 这又只需论证 $g(x + i oo)$ 有界。
 3. 注意 $cot z$ 在 $Im z -> +oo$ 时有界，于是进一步转化为论证 $f(x+i oo)$ 有界。
 
-取 $x,y in RR$，$z = x + y i in CC without ZZ$，再令 $y -> +oo$，看 $f(z)$ 如何。
+取 $x,y in RR$，$z = x + y i in CC without ZZ$，再令 $y -> +oo$，看 $f(z)$ 是否有界。
 
 #remark[$cot z$ 在 $Im z -> plus.minus oo$ 时有界][
   $
@@ -329,13 +329,26 @@ $
   - 若 $x = 0$，则 $abs(z^2 - 1) = y^2 + 1 -> +oo$，结论不变。
 ]
 
+#remark[不太严谨的论证][
+  $
+  f(z) = sum_(n in ZZ) 1/(i + (x+n)/y) 1/y.
+  $
+  将 $(x+n)/y$ 看作 $u$，将 $1/y$ 看作 $difference(u)$，令 $y -> +oo$，则 Riemann 和趋于
+  $
+  integral_RR dd(u)/(i+u) = eval(ln(i+u))_(-oo)^(+oo) = -pi i,
+  $
+  故 $f(z)$ 存在极限，从而有界。
+
+  这一结果与 $pi cot(x + i oo) = -pi i$ 一致，可只是结果正确而已。
+]
+
 初步尝试会发现因 $sum 1/n$ 并不绝对收敛，很难处理，故转而折叠求和范围：
 $
 f(z)
 &= 1/z + sum_(n in ZZ^+) (2z)/(z^2-n^2) \
 &= 1/z + sum_(n in ZZ^+) 2/(1 - (n/z)^2) 1/z.
 $
-第一项有界，第二项类似 $integral_(RR^+) dd(u)/(1-u^2)$ 的 Riemann 和。$x=0$ 时，第二项的模等于
+第一项有界，第二项类似 Riemann 和。$x=0$ 时，第二项的模等于
 $
 sum_(n in ZZ^+) 2/(1 + (n/y)^2) 1/y
 attach(-->, t: y->+oo) integral_(RR^+) (2 dd(u))/(1+u^2)
@@ -348,18 +361,15 @@ $
   一般不能这么写到无穷积分；不过这里被积函数不变号、单调，而且无穷积分收敛。
 ]
 
-#remark[不折叠求和范围][
-  $
-  f(z) = sum_(n in ZZ) 1/(i + (x+n)/y) 1/y,
-  $
-  然后
-  $
-  integral_RR dd(u)/(i+u) = eval(ln(i+u))_(-oo)^(+oo) = -pi i,
-  $
-  以及 $pi cot(x + i oo) = -pi i$。从结果看没问题。
-]
-
-$x != 0$ 时怎么办呢？
+$x != 0$ 时怎么办呢？考虑更易收敛的导数：
+$
+abs(f'(z))
+<= sum_(n in ZZ) 1 / abs(z+n)^2
+= 1/y sum_(n in ZZ) 1 / (1 + (x+n)^2/y^2) 1/y
+= 1/y order(pi/2)
+-> 0.
+$
+由导数有界，$f(0+i oo)$ 有界，可得 $f([0,1] + i oo)$ 有界。至此得证。
 
 #set heading(numbering: none)
 = 他典等
