@@ -13,6 +13,19 @@
   #v(.5em)
 ]).with(numbering: none)
 
+#let example = thmenv("example", none, none, none, (name, number, body, fill: black) => [
+  #text(fill: fill, weight: "bold")[
+    #if name == none {
+      [例.]
+    } else {
+      [例（#name）.]
+    }
+  ]
+  #h(.5em)
+  #body
+  #v(.5em)
+]).with(numbering: none)
+
 #let small = text.with(size: 0.8em, fill: gray.darken(70%))
 
 #let project(title: "", authors: (), date: none, body) = {

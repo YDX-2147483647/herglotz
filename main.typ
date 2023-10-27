@@ -1,9 +1,11 @@
 #import "@preview/tablex:0.0.6": tablex, hlinex, vlinex
-#import "@preview/physica:0.8.0": dd, dv, Re, Im, Res, order, eval, difference
+#import "@preview/physica:0.8.0": dd, dv, Re, Im, Res as _Res, order, eval, difference
 
-#import "template.typ": project, remark, small
+#import "template.typ": project, remark, example, small
 
 #show: project.with(title: "Herglotz Trick", date: "2023年10月9–10、11、26日")
+
+#let Res = math.limits(_Res)
 
 = 倒数和 <sec:intro>
 
@@ -248,6 +250,8 @@ $f$ 大约的确是 $x |-> pi cot(pi x)$ 了。
 
 = $CC$ 的威力
 
+$RR$ 的论证在 $CC$ 仍成立，但 $CC$ 自有它的特点。
+
 == 三角恒等式
 
 @sec:quantitative 的注推广了递归性质，它用 $cot$ 表示是
@@ -371,6 +375,88 @@ abs(f'(z))
 $
 由导数有界，$f(0+i oo)$ 有界，可得 $f([0,1] + i oo)$ 有界。至此得证。
 
+= 应用
+
+== 用留数计算等距和
+
+$u: CC -> CC$ 全纯，设回路 $Gamma$ 是 $[-R-1/2,R+1/2]^2$ 的边界，$R in ZZ^+$，由留数定理，
+$
+1/(2pi i) integral.cont_Gamma u(z) f(z) dd(z)
+= sum_(n=-R)^R u(n),
+$
+因为 $Res_(z=n) f(z) = 1$，于是 $Res_(z=n) u(z) f(z) = u(n)$。
+
+现在令 $R -> +oo$，RHS 变为等距和 $sum_(n in ZZ) u(n)$，LHS 一般也容易估计。
+
+#example[重算原问题][
+  在上述方法中，$f$ 当作 $pi cot(pi z)$ 即可完成推理，用不着
+  $
+  f(zeta) = sum_(n in ZZ) 1/(zeta+n),
+  space zeta in CC without ZZ,
+  $
+  故可用这一方法重算上式。
+
+  取 $u(z) = 1/(zeta+z)$，有唯一极点 $-zeta$。$R$ 充分大后，公式变为
+  $
+  1/(2pi i) integral.cont_Gamma (pi cot(pi z))/(z+zeta) dd(z)
+  = Res_(z=-zeta) (pi cot(pi z))/(z+zeta) + sum_(n=-R)^R 1/(zeta+n).
+  $
+
+  令 $R -> +oo$，
+  $
+  f(zeta)
+  &= "LHS" - Res_(z=-zeta) (pi cot(pi zeta))/(z+zeta) \
+  &= "LHS" + pi cot(pi zeta).
+  $
+
+  最后说明 $"LHS" = 0$。
+  1. $zeta = 0$ 时，被积函数 $(pi cot(pi z))/z$ 是偶函数，围道积分按定义是零。
+  2. 即使 $zeta != 0$，误差也可以忽略。因为被积函数只比 $zeta = 0$ 时多了
+    $
+    (1/(z+zeta) - 1/z) pi cot(pi z)
+    = -zeta/(z(z+zeta)) pi cot(pi z)
+    = order(1/R^2),
+    $
+    而边界长 $order(R)$，误差最多 $order(1/R)$。
+]
+
+#example[Basel 问题][
+  求
+  $
+  S = sum_(n in ZZ^+) 1/n^2.
+  $
+  （Riemann $zeta(s) = sum 1/n^s$ 在 $s=2$ 处的值）
+
+  取 $u(z) = 1/z^2$。它在 $z=0$ 有极点，不过没关系，单独处理即可：
+  $
+  1/(2pi i) integral.cont_Gamma f(z)/z^2 dd(z)
+  = Res_(z=0) f(z)/z^2 + 2 sum_(n=1)^R 1/n^2.
+  $
+
+  令 $R -> +oo$，同理 $"LHS" = 0$，$"RHS" = Res_(z=0) f(z)/z^2 + 2S$。
+  移项得
+  $
+  S
+  &= -1/2 Res_(z=0) f(z)/z^2 \
+  &= -1/2 Res_(z=0) (pi cot(pi z))/z^2 \
+  &= -pi^2/2 Res_(z=0) (cot z)/z^2.
+  $
+
+  另外，从 $f = 1/x + 2x sum 1/(x^2-n^2)$ 也能看出 $-2S$ 等于 $f$ 的 Laurent 展式中 $z$ 项的系数。
+
+  现在计算留数。
+  $
+  (cot z - 1\/z - 0)/z
+  = (z - tan z)/(z^2 tan z)
+  tilde (-1/3 z^3 + order(z^5))/z^3
+  -> -1/3.
+  $
+  因此
+  $
+  S = sum_(n in ZZ^+) 1/n^2 = pi^2/6.
+  $
+]
+
 #set heading(numbering: none)
 = 他典等
 
@@ -379,6 +465,7 @@ $
 - #link("https://math.stackexchange.com/questions/141470/find-the-sum-of-sum-frac1k2-a2-when-0a1/143179")[sequences and series - Find the sum of $sum 1/(k^2 - a^2)$ when $0<a<1$ - Mathematics Stack Exchange]
 - #link("https://math.stackexchange.com/questions/110494/possibility-to-simplify-sum-limits-k-infty-infty-frac-left/110495")[calculus - Possibility to simplify $sum_(k = -oo)^oo (-1)^k/(a + k) = pi/sin(pi a)$ - Mathematics Stack Exchange]
 - #link("https://math.stackexchange.com/questions/1393943/riemann-sum-on-infinite-interval")[real analysis - Riemann sum on infinite interval - Mathematics Stack Exchange]
+- #link("https://en.wikipedia.org/wiki/Residue_theorem")[Residue theorem - Wikipedia]
 
 = 致谢
 
