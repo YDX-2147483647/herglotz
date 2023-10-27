@@ -3,9 +3,10 @@
 
 #import "template.typ": project, remark, example, small
 
-#show: project.with(title: "Herglotz Trick", date: "2023年10月9–10、11、26日")
+#show: project.with(title: "Herglotz Trick", date: "2023年10月9–10、11、26–28日")
 
 #let Res = math.limits(_Res)
+#let comb = math.op("Ш")
 
 = 倒数和 <sec:intro>
 
@@ -377,6 +378,12 @@ $
 
 = 应用
 
+== 类似公式
+
+$
+sum_(n in ZZ) (-1)^n / (x+n) = pi csc(pi x).
+$
+
 == 用留数计算等距和
 
 $u: CC -> CC$ 全纯，设回路 $Gamma$ 是 $[-R-1/2,R+1/2]^2$ 的边界，$R in ZZ^+$，由留数定理，
@@ -457,6 +464,98 @@ $
   $
 ]
 
+== 离散时间 Fourier 变换
+
+#remark[其实这是我接触本问题的来源。]
+
+#remark[Poisson 求和公式][
+  $f: RR -> CC$ 属于 Schwarz 类#footnote[增长不超过幂函数。]，$F: RR -> CC$ 是其连续时间 Fourier 变换#footnote[
+    $F(f) = integral_RR f(t) e^(-i 2 pi f t) dd(t).$
+  ]，则
+  $
+  sum_(n in ZZ) f(n) = sum_(k in ZZ) F(k).
+  $
+
+  LHS 是 $f$ 按 $1$ 周期化后在 $t=0$ 处的值，RHS 是 $F$ 按 $1$ 采样后的和。
+
+  具体来说，$f$ 按 $1$ 周期化即
+  $
+  tilde(f)(t) := sum_(n in ZZ) f(t + n),
+  $
+  它的 Fourier 级数
+  $
+  tilde(F)_k
+  &:= integral_[0,1] tilde(f)(t) e^(-i 2pi k t) dd(t) \
+  &= integral_[0,1] sum_(n in ZZ) f(t+n) space e^(-i 2pi k t) dd(t) \
+  &= sum_(n in ZZ) integral_[0,1] f(t+n) space e^(-i 2pi k t) dd(t) \
+  &= sum_(n in ZZ) integral_[n,n+1] f(t) space e^(-i 2pi k t) dd(t) \
+  &= integral_RR f(t) space e^(-i 2pi k t) dd(t) \
+  &= F(k).
+  $
+
+  又由 Fourier 级数的综合公式，
+  $
+  tilde(f)(0) = sum_(k in ZZ) tilde(F)_k.
+  $
+
+  代入即得证。
+
+  更进一步，若用含 Dirac $delta$ 的 Fourier 变换表示 Fourier 级数，则上述论证相当于
+  $
+  f * comb <-> F comb,
+  $
+  其中 $*$ 表示卷积，$comb(u) = sum_(v in ZZ) delta(u-v)$ 是间距为 $1$ 的 Dirac 梳。
+]
+
+$omega |-> sinc (T omega)/2$ 按 $Omega$ 周期化是
+$
+tilde(H)
+= sum_(n in ZZ) sinc (T(omega - n Omega))/2
+= sum_(n in ZZ) sin((T omega)/2 - n (T Omega)/2) / (T/2 (omega - n Omega)).
+$
+
+若 $T Omega in 2 pi ZZ$，则自变量可用 $sin$ 的对称性化简。记 $N = (T Omega)/(2pi) in ZZ$，$tilde(omega)/(2pi) = omega/Omega$，于是 $T omega = N tilde(omega)$，
+$
+tilde(H)
+= sum_(n in ZZ) sin(N/2 tilde(omega) - n N pi) / (N/2 tilde(omega) - n N pi).
+$
+
+- 若 $N in 2 ZZ$，则
+  $
+  tilde(H)
+  &= sum_(n in ZZ) (sin (N tilde(omega))/2) / (N/2 tilde(omega) - n N pi)
+  &= (sin (N tilde(omega))/2) / (N pi) sum_(n in ZZ) 1 / (tilde(omega)/(2pi) - n)
+  &= (sin (N tilde(omega))/2) / (N tan tilde(omega)/2)
+  &= (sin (N tilde(omega))/2) / (N sin tilde(omega)/2) cos tilde(omega)/2.
+  $
+- 若 $N in 2 ZZ + 1$，则
+  $
+  tilde(H)
+  &= sum_(n in ZZ) ((-1)^n sin (N tilde(omega))/2) / (N/2 tilde(omega) - n N pi)
+  &= (sin (N tilde(omega))/2) / (N pi) sum_(n in ZZ) (-1)^n / (tilde(omega)/(2pi) - n)
+  &= (sin (N tilde(omega))/2) / (N sin tilde(omega)/2).
+  $
+
+其实从时域看，
+$
+integral_RR bold(1)_[-T/2,T/2] e^(-i omega t) dd(t)
+&= sinc (T omega)/2. \
+1/N sum_(n in ZZ + 1/2) bold(1)_[-N/2, N/2] e^(-i tilde(omega) n)
+&= (sin (N tilde(omega))/2) / (N sin tilde(omega)/2) cos tilde(omega)/2,
+&space N in 2 ZZ. \
+1/N sum_(n in ZZ) bold(1)_[-N/2, N/2] e^(-i tilde(omega) n)
+&= (sin (N tilde(omega))/2) / (N sin tilde(omega)/2),
+&space N in 2ZZ + 1. \
+$
+其中 $bold(1)$ 是集合的示性函数。
+
+#remark[等比数列求和][
+  $alpha != beta$ 时，
+  $
+  sum_(a, b in NN \ a + b = n-1) alpha^a beta^b = (alpha^n - beta^n)/(alpha - beta).
+  $
+]
+
 #set heading(numbering: none)
 = 他典等
 
@@ -466,6 +565,8 @@ $
 - #link("https://math.stackexchange.com/questions/110494/possibility-to-simplify-sum-limits-k-infty-infty-frac-left/110495")[calculus - Possibility to simplify $sum_(k = -oo)^oo (-1)^k/(a + k) = pi/sin(pi a)$ - Mathematics Stack Exchange]
 - #link("https://math.stackexchange.com/questions/1393943/riemann-sum-on-infinite-interval")[real analysis - Riemann sum on infinite interval - Mathematics Stack Exchange]
 - #link("https://en.wikipedia.org/wiki/Residue_theorem")[Residue theorem - Wikipedia]
+- #link("https://en.wikipedia.org/wiki/Poisson_summation_formula")[Poisson summation formula - Wikipedia]
+- #link("https://proofwiki.org/wiki/Poisson_Summation_Formula")[Poisson Summation Formula - ProofWiki]
 
 = 致谢
 
