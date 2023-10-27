@@ -1,5 +1,5 @@
 #import "@preview/tablex:0.0.6": tablex, hlinex, vlinex
-#import "@preview/physica:0.8.0": dv, Re, Res
+#import "@preview/physica:0.8.0": dv, Re, Res, order
 
 #import "template.typ": project, remark, small
 
@@ -73,7 +73,7 @@ $
 
   知道了 $f tilde 1/x$，大胆的人可能会断言：$f$ 已按极点展开为分式之和，显然#footnote[
     本文所有“显然”都是指“已按极点展开为分式之和”。`⚆_⚆`
-  ] $f$ 在 $ZZ$ 的留数都是 $1$，且除此以外无极点。
+  ] $f$ 有单极点 $ZZ$，且留数都是 $1$，除此以外无极点。
 
 - *周期*——$f(x+1) = f(x)$
 
@@ -192,7 +192,7 @@ $f$ 大约的确是 $x |-> pi cot(pi x)$ 了。
   $
 ]
 
-= Herglotz trick
+= Herglotz trick <sec:herglotz>
 
 现在证明二者严格相等。
 
@@ -205,7 +205,13 @@ $f$ 大约的确是 $x |-> pi cot(pi x)$ 了。
 2. *连续*
 
   - 在 $RR without ZZ$ 上，$g$ 自然连续。
-  - 在 $ZZ$ 上，由于 $f$ 和 $cot$ 的留数相互抵消，$lim g = 0$。若补充定义 $g=0$，$g$ 即连续。
+
+  - 在 $ZZ$ 上，$f$ 和 $cot$ 的 $oo$ 相互抵消，奇点可去。
+
+    具体来说，$x -> 0$ 时，
+    - 前面判断 $f$ 收敛时已得 $f - 1\/x = order(x)$；
+    - 又知 $cot x - 1\/x = (x - tan x)/(x tan x) tilde o(x^2) \/ x^2 = o(1)$。
+    故 $g -> 0$。若补充定义 $g(0)=0$，$g$ 即连续。
 
 3. *递归 $and$ 连续 $=>$ 全零*
 
@@ -248,7 +254,7 @@ $f$ 大约的确是 $x |-> pi cot(pi x)$ 了。
   利用 $N f(xi) = f(xi/N) + dots.c + f((xi + N-1)/N)$，得到 $f(xi/N) = m$。再令 $N -> +oo$。
 ]
 
-= 复变函数的优良性质
+= $CC$ 的威力
 
 == 三角恒等式
 
@@ -290,7 +296,7 @@ $
 
 从右到左是有理分式的部分分式展开问题。
 
-- RHS 分母有零点 $1, omega, ..., omega^(N-1)$，与 LHS 的极点 $1, omega^(-1), ..., omega^(-k), ..., omega^(1-N)$ 一致。
+- RHS 分母有单零点 $1, omega, ..., omega^(N-1)$，与 LHS 的极点 $1, omega^(-1), ..., omega^(-k), ..., omega^(1-N)$ 及阶数一致。
 - 接着检查各个极点的留数。LHS 在 $omega^k$ 的留数显然#footnote[
   因为已按极点展开为分式之和。`(⊙_⊙)`
 ]是 $omega^k$，RHS 的我们用 L'Hôpital 法则算一下：
@@ -303,6 +309,23 @@ $
   = omega^k.
   $
 从而得证。
+
+全纯相当强硬地限制了复变函数，常常用一些个别条件就能唯一确定整个函数。
+
+== $f(x + i oo)$
+
+1844年 Cauchy 证明了 Liouville 定理：$CC$ 上的全纯函数若有界，则只能是常数。下面将用它证明 $g(z) = f(z) - pi cot(pi z) equiv 0$。
+
+- $CC$ 上#strong[全纯]：$CC without ZZ$ 自不必说，$ZZ$ 处单极点相消，可去。
+- #strong[有界]：待证。
+- #strong[常数 $=>$ 全零]：任取一点，分析 $ZZ$ 处极限是零（→ @sec:herglotz Herglotz trick）或利用 $f(1/2) = 0 = cot pi/2$。
+
+现在证明有界。由周期 $1$，只要关心 $[0,1] + i RR$ 即可，这又只需论证 $f(x + i oo)$ 有界。
+
+取 $x,y in RR$，$z = x + y i$，则
+$
+f(z) = sum_(n in ZZ) 1 / (x + y i + n)
+$
 
 #set heading(numbering: none)
 = 他典等
