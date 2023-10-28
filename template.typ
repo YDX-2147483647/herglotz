@@ -1,30 +1,24 @@
-#import "@preview/ctheorems:1.0.0": thmrules, thmenv
+#import "@preview/ctheorems:1.0.0": thmrules, thmbox
 
-#let remark = thmenv("remark", none, none, none, (name, number, body, fill: black) => [
-  #text(fill: fill, weight: "bold")[
-    #if name == none {
-      [注.]
-    } else {
-      [注（#name）.]
-    }
-  ]
-  #h(.5em)
-  #body
-  #v(.5em)
-]).with(numbering: none)
+#let remark = thmbox(
+  "remark",
+  "注",
+  titlefmt: text.with(weight: "bold"),
+  // -0.5em 用于抵消 head、name 之间的空格。
+  namefmt: (name) => text(weight: "bold")[#h(-0.5em)（#name）],
+  separator: text(weight: "bold")[.#h(0.5em)],
+  breakable: true,
+).with(numbering: none)
 
-#let example = thmenv("example", none, none, none, (name, number, body, fill: black) => [
-  #text(fill: fill, weight: "bold")[
-    #if name == none {
-      [例.]
-    } else {
-      [例（#name）.]
-    }
-  ]
-  #h(.5em)
-  #body
-  #v(.5em)
-]).with(numbering: none)
+#let example = thmbox(
+  "example",
+  "例",
+  titlefmt: text.with(weight: "bold"),
+  // -0.5em 用于抵消 head、name 之间的空格。
+  namefmt: (name) => text(weight: "bold")[#h(-0.5em)（#name）],
+  separator: text(weight: "bold")[.#h(0.5em)],
+  breakable: true,
+).with(numbering: none)
 
 #let small = text.with(size: 0.8em, fill: gray.darken(70%))
 
