@@ -563,12 +563,19 @@ $
 = 他典等
 
 - #link("https://en.wikipedia.org/wiki/Trigonometric_functions")[Trigonometric functions - Wikipedia]
+
 - #link("https://math.stackexchange.com/questions/581162/how-does-the-herglotz-trick-work")[sequences and series - How does the Herglotz trick work? - Mathematics Stack Exchange]
+
 - #link("https://math.stackexchange.com/questions/141470/find-the-sum-of-sum-frac1k2-a2-when-0a1/143179")[sequences and series - Find the sum of $sum 1/(k^2 - a^2)$ when $0<a<1$ - Mathematics Stack Exchange]
+
 - #link("https://math.stackexchange.com/questions/110494/possibility-to-simplify-sum-limits-k-infty-infty-frac-left/110495")[calculus - Possibility to simplify $sum_(k = -oo)^oo (-1)^k/(a + k) = pi/sin(pi a)$ - Mathematics Stack Exchange]
+
 - #link("https://math.stackexchange.com/questions/1393943/riemann-sum-on-infinite-interval")[real analysis - Riemann sum on infinite interval - Mathematics Stack Exchange]
+
 - #link("https://en.wikipedia.org/wiki/Residue_theorem")[Residue theorem - Wikipedia]
+
 - #link("https://en.wikipedia.org/wiki/Poisson_summation_formula")[Poisson summation formula - Wikipedia]
+
 - #link("https://proofwiki.org/wiki/Poisson_Summation_Formula")[Poisson Summation Formula - ProofWiki]
 
 = 致谢
