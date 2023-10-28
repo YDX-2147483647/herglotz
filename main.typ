@@ -541,6 +541,9 @@ $
 integral_RR bold(1)_[-T/2,T/2] e^(-i omega t) dd(t)
 &= sinc (T omega)/2. \
 1/N sum_(n in ZZ + 1/2) bold(1)_[-N/2, N/2] e^(-i tilde(omega) n)
+&= (sin (N tilde(omega))/2) / (N sin tilde(omega)/2),
+&space N in 2 ZZ. \
+1/N sum_(n in ZZ) (bold(1)_[-N/2, N/2) + bold(1)_(-N/2, N/2])/2 e^(-i tilde(omega) n)
 &= (sin (N tilde(omega))/2) / (N sin tilde(omega)/2) cos tilde(omega)/2,
 &space N in 2 ZZ. \
 1/N sum_(n in ZZ) bold(1)_[-N/2, N/2] e^(-i tilde(omega) n)
