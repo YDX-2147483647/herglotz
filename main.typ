@@ -182,7 +182,7 @@ $f$ 大约的确是 $x |-> pi cot(pi x)$ 了。
   $
   N f(N x)
   &= sum_(n in ZZ) 1/(x+n/N) \
-  &= sum_(k=0)^(N-1) sum_(n in n ZZ + k) 1/(x + k/N + ZZ) \
+  &= sum_(k=0)^(N-1) sum_(n in N ZZ + k) 1/(x + k/N + ZZ) \
   &= sum_(k=0)^(N-1) f(x+k/N). \
   $
 ]
@@ -193,7 +193,7 @@ $f$ 大约的确是 $x |-> pi cot(pi x)$ 了。
 
 1. *作差*
 
-  $g = f - pi cot(pi x).$
+  $g := f - pi cot(pi x).$
 
   $g$ 保有上述周期、奇、递归性质。
 
@@ -311,7 +311,7 @@ $
 
 == $f(x + i oo)$
 
-1844年 Cauchy 证明了 Liouville 定理：$CC$ 上的全纯函数若有界，则只能是常数。下面将用它证明 $g(z) = f(z) - pi cot(pi z) equiv 0$。
+1844年 Cauchy 证明了 Liouville 定理：$CC$ 上的全纯函数若有界，则只能是常数。下面将用它证明 $g(z) := f(z) - pi cot(pi z) equiv 0$。
 
 - $CC$ 上#strong[全纯]：$CC without ZZ$ 自不必说，$ZZ$ 处单极点相消，可去。
 - #strong[有界]：待证。
@@ -449,7 +449,7 @@ $
   &= -pi^2/2 Res_(z=0) (cot z)/z^2.
   $
 
-  另外，从 $f = 1/x + 2x sum 1/(x^2-n^2)$ 也能看出 $-2S$ 等于 $f$ 的 Laurent 展式中 $z$ 项的系数。
+  另外，从 $f = 1/z + 2z sum 1/(z^2-n^2)$ 也能看出 $-2S$ 等于 $f$ 的 Laurent 展式中 $z$ 项的系数。
 
   现在计算留数。
   $
@@ -514,7 +514,7 @@ tilde(H)
 = sum_(n in ZZ) sin((T omega)/2 - n (T Omega)/2) / (T/2 (omega - n Omega)).
 $
 
-若 $T Omega in 2 pi ZZ$，则自变量可用 $sin$ 的对称性化简。记 $N = (T Omega)/(2pi) in ZZ$，$tilde(omega)/(2pi) = omega/Omega$，于是 $T omega = N tilde(omega)$，
+若 $T Omega in 2 pi ZZ$，则分子可用 $sin$ 的对称性化简。记 $N = (T Omega)/(2pi) in ZZ$，$tilde(omega)/(2pi) = omega/Omega$，于是 $T omega = N tilde(omega)$，
 $
 tilde(H)
 = sum_(n in ZZ) sin(N/2 tilde(omega) - n N pi) / (N/2 tilde(omega) - n N pi).
