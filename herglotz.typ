@@ -125,7 +125,7 @@ $
 - 在相邻渐近线间单调递减。
 
 #figure(
-  image("plot.svg", width: 60%),
+  image("fig/plot.svg", width: 60%),
   caption: [$f(x)$ 的草图]
 )
 
@@ -231,7 +231,7 @@ $f$ 大约的确是 $x |-> pi cot(pi x)$ 了。
   - $2xi, 2xi-1$（下图橙线）
 
   #figure(
-    image("spider.svg", width: 40%),
+    image("fig/spider.svg", width: 40%),
     caption: [蛛网图底板]
   )
 
