@@ -1,7 +1,6 @@
-#import "@preview/tablex:0.0.6": tablex, hlinex, vlinex
 #import "@preview/physica:0.8.0": dd, dv, Re, Im, Res as _Res, order, eval, difference
 
-#import "template.typ": project, remark, example, small
+#import "template.typ": project, remark, example, small, pseudonyms
 
 #show: project.with(title: "Herglotz Trick", date: "2023年10月9–10、11、26–28日")
 
@@ -582,30 +581,4 @@ $
 
 离散时间 Fourier 变换的问题是刘备遇到的。级数的故事与杜甫讨论过，杜甫分析了导数，并用导数在奇点的等价无穷大得到了相同系数，还提出了若干替代思路。
 
-刘备、杜甫当然是化名，他们的真名按 UTF-8 编码的 SHA256 如下。
-
-#figure(
-  tablex(
-    columns: (auto, auto),
-    align: center + horizon,
-    auto-vlines: false,
-    auto-hlines: false,
-    [*化名*], vlinex(), [*`hash`*],
-    hlinex(),
-    [刘备], `5e52f4f5e70ced90628f363f04297ee98804c3d73f5804ff427e6418b5075c24`,
-    [杜甫], `525f81520cbe27a7c04d78d99ae59463bd0d9e7cb9f1c3d5bf3fc7efdf119088`,
-  ),
-  kind: table,
-  caption: [化名与真名的`hash`]
-)
-
-#figure(
-  ```python
-  from hashlib import sha256
-
-  def hash(name: str) -> str:
-      """按 UTF-8 编码来 SHA256"""
-      return sha256(name.encode("utf-8")).hexdigest()
-  ```,
-  caption: [计算`hash`的 Python 脚本]
-)
+#pseudonyms("pseudonym", subset: ("刘备", "杜甫"))

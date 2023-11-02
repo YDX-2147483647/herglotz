@@ -1,4 +1,10 @@
 *.pdf
+*.nb
 
 /fig/*
 !/fig/.gitkeep
+
+/pseudonym/*.csv
+
+# Python
+__pycache__/
