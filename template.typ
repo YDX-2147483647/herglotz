@@ -40,6 +40,10 @@
   show raw: set text(font: ("Fira Code", ..sans-fonts))
   set heading(numbering: "1.1", supplement: [§])
 
+  // Make the empty set round
+  // https://github.com/typst/typst/pull/1526#issuecomment-1596326198
+  show sym.emptyset: sym.diameter
+
   // Title row.
   align(center)[
     #block(text(font: sans-fonts, weight: 700, 1.75em, title))
