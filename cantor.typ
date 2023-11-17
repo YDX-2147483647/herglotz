@@ -302,6 +302,7 @@ $X$ 内有一点 $x$，考查 $x$ 的邻域 $U$ 和去心邻域 $U^0 := U withou
     [$G_delta$ #h(1fr)——开集的可数交], [$F_sigma$ #h(1fr)——闭集的可数并],
     [comeagre#footnote[我尝试了多种翻译服务，只有必应有时能输出汉字：科马格雷。]], [疏朗 meagre #h(1fr)——无处稠密集的可数并],
   ),
+  kind: table,
   caption: [Baire空间涉及的若干性质]
 )
 
