@@ -265,7 +265,10 @@ $X$ 内有一点 $x$，考查 $x$ 的邻域 $U$ 和去心邻域 $U^0 := U withou
 
 #figure(
   image("fig/final_frontier.png", width: 60%),
-  caption: [$RR^2$ 内的一个点集（黑灰点），以及它的导集（橙虚线）
+  caption: [
+    $RR^2$ 内的一个点集（黑灰点），以及它的导集（橙虚线）#footnote[
+      橙虚线的导集是其自身，所以它是黑灰点集反复取导集的最终结果。又，代数拓扑、流形中有其它boundary概念，为避免混淆，点集拓扑中的边界有时改称frontier。综合两点，橙虚线是名副其实的 _final frontier_。
+    ]
 
     这个点集由 $ZZ times NN times {-1} subset RR^3$ 关于 $(0,0,0)$ 投影而成。
 
@@ -311,6 +314,7 @@ $X$ 内有一点 $x$，考查 $x$ 的邻域 $U$ 和去心邻域 $U^0 := U withou
 - #link("https://en.wikipedia.org/wiki/Baire_function")[Baire function - Wikipedia]
 - #link("https://en.wikipedia.org/wiki/Baire_space")[Baire space - Wikipedia]
 - #link("https://mp.weixin.qq.com/s/Km8iIghIn-aAKT0YQKHWAw")[解题的策略 - 陶哲轩教你学数学]
+- #link("https://en.wikipedia.org/wiki/Boundary_(topology)")[Boundary (topology) - Wikipedia]
 
 = 致谢
 
