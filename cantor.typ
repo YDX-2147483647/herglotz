@@ -1,8 +1,8 @@
 #import "@preview/tablex:0.0.6": tablex, hlinex, vlinex
 
-#import "template.typ": project, remark, pseudonyms
+#import "template.typ": project, remark, pseudonyms, example
 
-#show: project.with(title: "既连续又本质间断", date: "2023年10月23–24日，11月7、13–14、16–17日")
+#show: project.with(title: "既连续又本质间断", date: "2023年10月23–24日，11月7、13–14、16–18日")
 
 #quote(
   block: true,
@@ -200,6 +200,8 @@ $RR -> RR$ 函数中，存在完全连续的，存在某一点不连续的，存
 
 为了让目前不懂或曾经懂过的人理解什么是“几乎处处”“连续”“本质间断”，需要明确若干概念。
 
+== 点
+
 $X$ 内有一点 $x$，考查 $x$ 的邻域 $U$ 和去心邻域 $U^0 := U without {x}$ 与集合 $S subset X$ 及其补集 $S^complement$ 的相交情况。
 #place(
   right,
@@ -228,6 +230,15 @@ $X$ 内有一点 $x$，考查 $x$ 的邻域 $U$ 和去心邻域 $U^0 := U withou
   image("fig/Interior_illustration.svg", width: 30%),
   caption: [
     $x$ 是 $S$ 的内点，$y$ 是 $S$ 的边界点 | #link("https://commons.wikimedia.org/wiki/File:Interior_illustration.svg")[Wikimedia Commons `Interior illustration.svg`]
+  ]
+)
+
+#figure(
+  image("fig/synapse.svg", width: 30%),
+  caption: [
+    闭包等概念的Euler图 | 删改自 #link("https://commons.wikimedia.org/wiki/File:SynapseSchematic_lines.svg")[Wikimedia Commons `SynapseSchematic lines.svg`]
+
+    虚线以上代表 $S$。有凹窝区域（贝壳颜色）代表 $S$ 的内部（即 $S^complement$ 的外部），与之相对区域（紫）代表 $S$ 的外部（即 $S^complement$ 的内部），其余代表边界（$S, S^complement$ 共享边界）。六边形（绿）代表 $S$ 的孤立点，三角形（红）代表 $S^complement$ 的孤立点。边界和内部之并是闭包，闭包中孤立点以外部分是聚点。
   ]
 )
 
@@ -284,10 +295,13 @@ $X$ 内有一点 $x$，考查 $x$ 的邻域 $U$ 和去心邻域 $U^0 := U withou
 //    }, PlotRange -> {{-a, a}, {-a, 0}}
 //   ]]
 
-理解了闭包的两种划分，就可以进一步谈集合的性质了。
+== 集合
+
+理解了点的性质，就可以进一步谈集合的性质了。
 #footnote[
   这里涉及开、闭、孤立。（open, closed, isolated）有趣的是，热学中系统刚好有开放、封闭、孤立的说法：开放系统允许与外界交换物质、能量，封闭系统不交换物质，孤立系统两者都不交换。
 ]
+例如，若一个集合等于其导集，则称它prefect，这等价于它是无孤立点的闭集。更多定义如@tab:def-pairs。
 
 #figure(
   tablex(
@@ -297,16 +311,130 @@ $X$ 内有一点 $x$，考查 $x$ 的邻域 $U$ 和去心邻域 $U^0 := U withou
     [*原集合的性质*], vlinex(), [*补集相应性质*],
     hlinex(),
     [开 open #h(1fr)——边界全无], [闭 closed #h(1fr)——边界全管],
-    [稠密 dense #h(1fr)——闭包取满], [无内点 has empty interior],
+    [稠密 dense #h(1fr)——闭包取满#footnote[稠密必须谈背景，这里默认在 $RR$ 中。]], [无内点 has empty interior],
     [内点稠密 has dense interior], [无处稠密 nowhere dense #h(1fr)——闭包也无内点],
     [$G_delta$ #h(1fr)——开集的可数交], [$F_sigma$ #h(1fr)——闭集的可数并],
     [comeagre#footnote[我尝试了多种翻译服务，只有必应有时能输出汉字：科马格雷。]], [疏朗 meagre #h(1fr)——无处稠密集的可数并],
   ),
   kind: table,
   caption: [Baire空间涉及的若干性质]
-)
+) <tab:def-pairs>
 
-#remark[相对概念][稠密必须谈背景。]
+#example[$QQ$ 的性质][在 $RR$ 中，$QQ$ 有如下性质。
+  #show "❌": text.with(fill: red)
+  #show "✅": text.with(fill: green)
+  #figure(
+    tablex(
+      columns: (auto, auto),
+      auto-vlines: false,
+      auto-hlines: false,
+      [*一种性质*], vlinex(), [*另一种性质*],
+      hlinex(),
+      [❌开], [❌闭],
+      [✅稠密], [✅无内点],
+      [❌内点稠密], [❌无处稠密],
+      [❌$G_delta$], [✅$F_sigma$],
+      [❌comeagre], [✅meagre],
+    ),
+    kind: table,
+    caption: [$QQ$ 在 $RR$ 中的性质]
+  )
+
+  由 $RR$ 的构造过程、$QQ$ 可数，立即得到大部分结论；剩下的由可数集之并仍可数，可转为 $RR$ 的性质。
+
+  - 假设 $QQ$ 是 $G_delta$ 集，结合 $RR without QQ$ 是 $G_delta$ 集，得 $emptyset = QQ sect (RR without QQ)$ 也 $G_delta$。
+
+    $emptyset$ 确实 $G_delta$，不过注意 $QQ, RR without QQ$ 都稠密，这不仅导出 $emptyset$ 是开集的可数交，还导出 $emptyset$ 是稠密开集的可数交，这可能吗？
+
+  - 假设 $QQ$ comeagre，则 $RR without QQ$ meagre。结合 $QQ$ meagre，得 $RR = QQ union (RR without QQ)$ 也 meagre。
+
+    $RR$ 不可数、稠密，它可能meagre吗？
+
+  Baire category theorem指出非空完备空间是Baire空间，以上两点都在Baire空间中不可能。
+]
+
+== Baire category theorem
+
+= 这就是现实
+
+现在回顾最初的目标，要构造一个函数 $f$，满足以下两点。
+- 几乎处处连续，且几乎处处不连续——将 $f$ 的间断点的集合记作 $A$，要求 $A,A^complement$ 都在 $RR$ 中稠密，即 $A$ 稠密且无内点。
+- 所有不连续点都是本质间断点——$forall a in A, space lim_(x->a) f(x)$ 不存在。
+
+我们的计划如下。
+
+0. 将 $A$ #strong[拆]为一系列互不相交的集合 $A_n$ （$n in NN$），取
+  $
+  f(x) = cases(
+    1/n &space x in A_n,
+    0 &space x in.not A
+  ).
+  $
+
+1. #strong[构造]时让 $A = union.big_(n in NN) A_n$ 稠密，而每个 $A_n$ 又足够稀松且补集性质优良。
+
+2. *证明* $A$ 中都是间断点，$A^complement$ 中都是连续点。
+
+== 构造
+
+1. 由于 $QQ^2$ 可数，可#strong[构造 $I_n$] 遍历所有“两端点是有理数的开区间”。
+
+2. 逐一#strong[构造 $A_n$] $subset I_n without union.big_(m < n) A_m$ 并且 $A_n$ 是#strong[无处稠密]的 *perfect* 集。
+
+  因为前面的 $A_m$ 都无处稠密，故补集 $RR without union.big_(m < n) A_m$ 的内点稠密，于是 $I_n without union.big_(m < n) A_m$ 有内点。在这内点的邻域内，总有段区间可供我们自由发挥来满足要求，例如平移缩放Cantor集。
+
+3. 论证 *$A$ 稠密*。
+
+  任取 $x in RR$ 及其邻域 $U$，必存在 $I_n subset U$（因为 $QQ$ 稠密），因而 $U sect A supset U sect A_n != emptyset$。
+
+4. 再论证#strong[补集 $A^complement$ 也稠密]。
+
+  $A$ 是可数个无处稠密集 $A_n$ 之并，即 $A$ meagre，于是 $A^complement$ comeagre，而Baire空间中comeagre集都稠密。
+
+#remark[Cantor集][
+  原版Cantor集 $cal(C)$ 是 $[0,1]$ 中三进制只含 $0,2$ 的数的集合，它也是不含“中间 $1/3$ 开区间”的自相似分形。
+
+  #figure(
+    image("fig/Cantor_set_binary_tree.svg", width: 50%),
+    caption: [
+      不断去掉中间部分可得到Cantor集 | #link("https://commons.wikimedia.org/wiki/File:Cantor_set_binary_tree.svg")[Wikimedia Commons `Cantor set binary tree.svg`]
+    ]
+  )
+
+  - 闭：迭代构造时，每一阶段都是闭集，$cal(C)$ 是这些闭集的交集，也闭。
+  - 无内点：迭代 $n$ 次后，不再存在长于 $1/3^n$ 的区间。
+  - 无孤立点：迭代 $n$ 次时，可确定此时每段闭区间的端点属于 $cal(C)$，并且它们到此时整个集合任意点的最大距离是 $1/(2 times 3^n)$。
+  综合以上各点，$cal(C)$ 是无处稠密的perfect集。
+]
+
+== 证明
+
+- 证明 $A$ 中都是#strong[间断]点。
+
+  设 $x in A_n$。
+
+  - $A^complement$ 稠密，所以 $x$ 是 $A^complement$ 的聚点，而 $f(A^complement) = {0}$。
+  - $A_n$ 闭，所以 $x$ 也是 $A_n$ 的聚点，而 $f(A_n) = {1/n}$。
+
+  我们构造了两个趋于 $x$ 的子列，极限分别是 $0,1/n$，不一致，故极限不存在。
+
+- 证明 $A^complement$ 中都是#strong[连续]点。
+
+  设 $x in A^complement$，要证明 $f$ 在 $x$ 处的极限等于 $f(x) = 0$。
+
+  1. 任取 $epsilon$，$union.big_(1/n >= epsilon) A_n$ 是有限个闭集之并，仍闭。
+  2. $x in.not A$，故不属于 $union.big_(1/n >= epsilon) A_n$，从而是这个闭集的外点，从而 $exists delta$，
+    $
+    U_delta^0
+    &subset RR without union.big_(1/n >= epsilon) A_n
+    = A^complement union union.big_(1/n < epsilon) A_n.
+    $
+  3. 代入 $f$ 的定义，得
+    $
+    f(U_delta^0)
+    subset {0} union {1/n: 1/n < epsilon}
+    subset U_epsilon (0).
+    $
 
 #set heading(numbering: none)
 = 他典等
