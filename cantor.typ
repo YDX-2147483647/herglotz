@@ -314,7 +314,7 @@ $X$ 内有一点 $x$，考查 $x$ 的邻域 $U$ 和去心邻域 $U^0 := U withou
     [稠密 dense #h(1fr)——闭包取满#footnote[稠密必须谈背景，这里默认在 $RR$ 中。]], [无内点 has empty interior],
     [内点稠密 has dense interior], [无处稠密 nowhere dense #h(1fr)——闭包也无内点],
     [$G_delta$ #h(1fr)——开集的可数交], [$F_sigma$ #h(1fr)——闭集的可数并],
-    [comeagre#footnote[我尝试了多种翻译服务，只有必应有时能输出汉字：科马格雷。]], [疏朗 meagre #h(1fr)——无处稠密集的可数并],
+    [comeagre#footnote[我尝试了多种翻译服务，只有必应有时能输出汉字：科马格雷。]], [疏朗 meagre#footnote[又叫first category，意思是按meagre与否将集合分为两类。不过取“第一”“第二”这种名字，还不如随机地叫“元伶外夜承”“承夜外伶元”，那样既强调仅有两类，又没有歧义。另外，这个category常译作“纲”（→界门纲目科属种），但容易误以为提纲、纲领，所以我们也不采用。] #h(1fr)——无处稠密集的可数并],
   ),
   kind: table,
   caption: [Baire空间涉及的若干性质]
@@ -350,10 +350,19 @@ $X$ 内有一点 $x$，考查 $x$ 的邻域 $U$ 和去心邻域 $U^0 := U withou
 
     $RR$ 不可数、稠密，它可能meagre吗？
 
-  Baire category theorem指出非空完备空间是Baire空间，以上两点都在Baire空间中不可能。
+  以上两点在Baire空间中都不可能。下面就将介绍这种空间。
 ]
 
 == Baire category theorem
+
+Baire空间有如下等价定义。
+
+#figure(
+  image("fig/baire_space-no_context_strokes.svg", width: 80%),
+  caption: [Baire空间的若干等价定义]
+)
+
+Baire category theorem指出非空完备空间是Baire空间。
 
 = 这就是现实
 
@@ -444,6 +453,7 @@ $X$ 内有一点 $x$，考查 $x$ 的邻域 $U$ 和去心邻域 $U^0 := U withou
 - #link("https://en.wikipedia.org/wiki/Baire_space")[Baire space - Wikipedia]
 - #link("https://mp.weixin.qq.com/s/Km8iIghIn-aAKT0YQKHWAw")[解题的策略 - 陶哲轩教你学数学]
 - #link("https://en.wikipedia.org/wiki/Boundary_(topology)")[Boundary (topology) - Wikipedia]
+- #link("https://www.ucl.ac.uk/~ucahad0/3103_handout_7.pdf")[Handout \#7: The Baire category theorem and its consequences - Mathematics 3103 (Functional Analysis), Year 2012–2013, Term 2 (ucl.ac.uk)]
 
 = 致谢
 
