@@ -23,7 +23,9 @@ $RR -> RR$ 函数中，存在完全连续的，存在某一点不连续的，存
 )
 
 不过这里只谈最基础的那种连续，我们要构造这样一个例子：
-#align(center)[
+#[
+  #show list: set align(center)
+  #show par: set align(start)
   - 几乎处处连续，且几乎处处不连续；
   - 所有不连续点都是本质间断点。
 ]
