@@ -260,18 +260,11 @@ $X$ 内有一点 $x$，考查 $x$ 的邻域 $U$ 和去心邻域 $U^0 := U withou
   - 内点 $=>$ 聚点。
   - $U subset S => U^0 sect S != emptyset.$
   - $U^0 subset S^complement => U sect S^complement != emptyset.$
-  - $U^0 subset S^complement and x in S ==> U sect S^complement != emptyset and U sect S != emptyset.$
-  - 孤立点 $=>$ 边界点。
-  其中那对逆否命题等价于
-  $
-  & U^0 sect S != emptyset or U sect S^complement != emptyset. \
-  &<==> U^0 sect S != emptyset or (U^0 union {x}) sect S^complement != emptyset. \
-  &<==> U^0 sect S != emptyset or (U^0 sect S^complement != emptyset or x in.not S). \
-  &<==> (U^0 sect S != emptyset or U^0 sect S^complement != emptyset) or x in.not S. \
-  &<==> U^0 sect (S union S^complement) != emptyset or x in.not S. \
-  &<==> U^0 != emptyset or x in.not S. \
-  $
-  只有 $S$ 中所有点的所有去心邻域都非空时才成立。事实上，若 $x in S$ 存在 $U^0 = emptyset$，那么按定义 $U subset S, U^0 subset S^complement$，于是 $x$ 既是内点又孤立，立即构成反例。
+  - 孤立点 $=>$ 边界点。（$U^0 subset S^complement and x in S ==> U sect S^complement != emptyset and U sect S != emptyset.$）
+  其中那对逆否命题是 $U^0 sect S != emptyset or U sect S^complement != emptyset$。分类讨论可知它等价于 $U^0 != emptyset or x in.not S$：
+  - $x in.not S$ 时，$U sect S^complement supset {x} sect S^complement = {x} != emptyset$，命题后半部分恒真。
+  - $x in S$ 时，整个命题化为 $U^0 sect S != emptyset or U^0 sect S^complement != emptyset$，即 $U^0 = U^0 sect (S union S^complement) != emptyset$。
+  于是这只有 $S$ 中所有点的所有去心邻域都非空时才成立。事实上，若 $x in S$ 存在 $U^0 = emptyset$，那么按定义 $U subset S, U^0 subset S^complement$，于是 $x$ 既是内点又孤立，立即构成反例。
 ]
 
 #figure(
