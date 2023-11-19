@@ -2,7 +2,7 @@
 
 #import "template.typ": project, remark, pseudonyms, example
 
-#show: project.with(title: "既连续又本质间断", date: "2023年10月23–24日，11月7、13–14、16–18日")
+#show: project.with(title: "既连续又本质间断", date: "2023年10月23–24日，11月7、13–14、16–19日")
 
 #quote(
   block: true,
@@ -313,6 +313,10 @@ $X$ 内有一点 $x$，考查 $x$ 的邻域 $U$ 和去心邻域 $U^0 := U withou
   caption: [Baire空间涉及的若干性质]
 ) <tab:def-pairs>
 
+#remark[$F_sigma, G_delta$ 定义的反面][
+  开集的任意并仍是开集，而 $F_sigma$（闭集的可数并）就未必是闭集了，例如 $union.big_(n in NN) [0, 1-1/n] = [0,1)$。
+]
+
 #example[$QQ$ 的性质][在 $RR$ 中，$QQ$ 有如下性质。
   #show "❌": text.with(fill: red)
   #show "✅": text.with(fill: green)
@@ -364,7 +368,23 @@ Baire空间有如下等价定义。
   caption: [Baire空间的若干等价定义]
 )
 
-Baire category theorem指出非空完备空间是Baire空间。
+Baire category theorem指出 $RR$ 是Baire空间，我们从“稠密开集的可数交 $=>$ 稠密”入手证明这一点。
+
+0. 设 $A_n$ 均是稠密开集，要证 $A = sect.big_n A_n$ 稠密，即对任意开集 $O$，$O sect A != emptyset$。
+1. 先考虑 $O sect A_1$。由 $A_1$ 稠密、开，$O sect A_1$ 是非空开集。于是可构造非空闭球 $overline(B_1) subset O sect A_1$。注意 $overline(B_1)$ 的内部 $B_1$ 也是开集，可进一步构造 $overline(B_2) subset B_1 sect A_2$。以此类推，$overline(B_n) subset B_(n-1) sect A_n$。
+2. 选取 $B_n$ 时，可让 $B_n$ 的直径小于 $1/n$，保证 $B_n$ 的直径趋于零，从而这些球的中心构成Cauchy列。由 $RR$ 完备，存在极限 $x$。
+3. $O sect A supset sect.big_n overline(B_n) supset {x} != emptyset$，命题得证。
+
+#remark[选择公理][
+  选取 $B_n$ 的过程需要axiom of dependent choice，可以证明ZF公理体系中，完备度量空间上的Baire category theorem与axiom of dependent choice等价。
+]
+
+#remark[真正的Baire category theorem][
+  上述证明只用到了“直径趋于零的闭集套交集非空”，可以推广到更抽象的空间。真正的Baire category theorem给出了下面两个没有蕴含关系的充分条件。
+  1. 完备的伪度量空间。（从Cauchy列出发）
+  2. 局部紧空间。（从闭区间套出发）
+  （直径趋于零是必要的：$sect.big_n [n,+oo) = emptyset$）
+]
 
 = 这就是现实
 
@@ -456,6 +476,7 @@ Baire category theorem指出非空完备空间是Baire空间。
 - #link("https://mp.weixin.qq.com/s/Km8iIghIn-aAKT0YQKHWAw")[解题的策略 - 陶哲轩教你学数学]
 - #link("https://en.wikipedia.org/wiki/Boundary_(topology)")[Boundary (topology) - Wikipedia]
 - #link("https://www.ucl.ac.uk/~ucahad0/3103_handout_7.pdf")[Handout \#7: The Baire category theorem and its consequences - Mathematics 3103 (Functional Analysis), Year 2012–2013, Term 2 (ucl.ac.uk)]
+- #link("https://en.wikipedia.org/wiki/Axiom_of_dependent_choice")[Axiom of dependent choice - Wikipedia]
 
 = 致谢
 
