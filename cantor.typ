@@ -2,7 +2,7 @@
 
 #import "template.typ": project, remark, pseudonyms, example
 
-#show: project.with(title: "既连续又本质间断", date: "2023年10月23–24日，11月7、13–14、16–19日")
+#show: project.with(title: "既连续又本质间断", date: "2023年10月23–24日，11月7、13–14、16–20日")
 
 #quote(
   block: true,
@@ -57,7 +57,7 @@ $RR -> RR$ 函数中，存在完全连续的，存在某一点不连续的，存
   )
   $
   在 $QQ$ 上处处不连续，在 $RR without QQ$ 上处处连续但不可导。#footnote[
-    Dirichlet 函数的两条规定可以交换，但Thomae函数不能。
+    Dirichlet 函数的两条规定可以交换，但Thomae函数不能。后面将证明不存在 $QQ$ 上处处连续、$RR without QQ$ 上处处不连续的函数。
   ]
 
 - *Cantor三分阶梯函数*（又名Lebesgue函数、魔鬼的阶梯） $c: [0,1] -> [0,1]$ 可用如下方法构造。
@@ -361,6 +361,52 @@ $X$ 内有一点 $x$，考查 $x$ 的邻域 $U$ 和去心邻域 $U^0 := U withou
   正命题“无内点 $=>$ meagre”成立，那反命题“meagre $=>$ 无内点”成立吗？这正是Baire空间要讨论的。
 ]
 
+#remark[Dirichlet函数不属于Baire class 1][
+  #let diam = math.op("diam")
+
+  1. *任何函数的间断点集合都 $F_sigma$。*
+
+    1. 函数 $f$ 在 $x$ 的#strong[振荡]（oscillation） $omega_f (x) := inf_(delta > 0) diam f(U_delta (x))$#footnote[这也是 $lim_(delta->0)$。（单调递减，非负，必存在极限）]，其中 $diam$ 表示集合的直径。
+    2. $f$ 在 $x$ 连续的定义是 $forall epsilon > 0, exists delta > 0, space f(U^0_delta (x)) subset U_epsilon (f(x))$，必要条件是 $diam f(U_delta (x)) < 2epsilon$，充分条件是 $diam f(U_delta (x)) < epsilon/2$，于是可知 $f$ 在 $x$ #strong[连续等价于 $omega_f (x) = 0$]。
+    3. $forall x in U_delta (x_0), space U_(2 delta) (x_0) supset U_delta (x)$，于是若 $omega(x_0) < Omega$，则 $forall x in U_delta (x_0), omega(x) < Omega$。换句话说，${x: omega(x) < Omega}$ 总是开集，故 *${x: omega(x) >= Omega}$ 总是闭集*。
+    4. $f$ 的#strong[间断点集合]是 ${x: omega(x) > 0}$，它也可写成
+      $
+      union.big_(n in NN) {x: omega(x) >= 1/n}
+      $
+      这样可数个闭集之并，于是 *$F_sigma$*。#footnote[
+        这是集合的极限 $lim_n {x: omega(x) >= 1/n}$。
+      ]
+
+    Thomae函数的间断点集合是 $QQ$，确实 $F_sigma$；但不存在一个函数，它的间断点集合是 $RR without QQ$，因为它并不 $F_sigma$（前面刚论证了Baire空间中 $QQ$ 不 $G_delta$）。
+
+  2. *Baire class 1函数的间断点集合 meagre $F_sigma$。*
+
+    Wikipedia给出的来源是 Kechris, Alexander S. _Classical Descriptive Set Theory_ (1995) 定理24.14，不过我查到一个足以排除Dirichlet函数的更弱的定理，它是 #link("https://www.whitman.edu/Documents/Academics/Mathematics/huh.pdf")[Baire one functions - Johnny Hu (`whitman.edu`)] 的第15页的定理4的一半。
+
+    1. 连续性的拓扑学定义是“开集的原像总是开集”。具体到 $RR -> RR$ 函数，只需说明 $(-oo, r), (r,+oo)$ 这两种开集的原像总是开集。
+
+      例如Dirichlet函数不连续，$(-oo, 1/2)$ 的原像是 $RR without QQ$，并不是开集。
+
+    2. 现在考察Baire class 1函数。设 $f_k$ 均连续且逐点收敛到 $f$，那么
+      $
+      {x: f(x) < r}
+      &= lim_(n -> +oo) {x: f(x) <= r - 1/n} \
+      &= lim_(n -> +oo) op("lim inf", limits: #true)_(k -> +oo) {x: f_k (x) <= r - 1/n} \
+      &= union.big_(n in NN) union.big_(k in NN) sect.big_(k' >= k) {x: f_k' (x) <= r - 1/n}.
+      $
+      第一个等号是 $union.big_n (-oo, r-1/n] = (-oo, r)$ 两边套 $f^(-1)$，第二个等号是极限的局部保号性，第三个等号是按集合极限的定义重写了一下。
+
+      - 因为 $f_k'$ 连续，$(r-1/n, +oo)$ 的原像总是开集，故 ${x: f_k' (x) <= r - 1/n}$ 总是闭集。作为闭集的任意交，$sect.big_(k' >= k) {x: f_k' (x) <= r - 1/n}$ 仍是闭集。
+
+      - $NN^2$ 可数，$union.big_n union.big_k$ 仍然是可数并。
+
+      于是 ${x: f(x) < r}$ 写成了闭集的可数并，$F_sigma$。
+
+    3. Dirichlet函数 $(-oo, 1/2)$ 的原像是 $RR without QQ$，并不 $F_sigma$，所以它不属于Baire class 1。
+
+    4. 上面说明了“*$(-oo, r)$ 的原像总 $F_sigma$*”是Baire class 1的必要条件。其实那个定理4证明了“$(-oo, r), (r, +oo)$ 的原像总 $F_sigma$”也是充分条件。不过构造过程相对繁琐，这里不再叙述；也许存在更直接的证明吧。
+]
+
 == Baire category theorem
 
 Baire空间有如下等价定义。
@@ -477,7 +523,7 @@ Baire category theorem指出 $RR$ 是Baire空间，我们从“稠密开集的�
 - #link("https://en.wikipedia.org/wiki/Baire_space")[Baire space - Wikipedia]
 - #link("https://mp.weixin.qq.com/s/Km8iIghIn-aAKT0YQKHWAw")[解题的策略 - 陶哲轩教你学数学]
 - #link("https://en.wikipedia.org/wiki/Boundary_(topology)")[Boundary (topology) - Wikipedia]
-- #link("https://www.ucl.ac.uk/~ucahad0/3103_handout_7.pdf")[Handout \#7: The Baire category theorem and its consequences - Mathematics 3103 (Functional Analysis), Year 2012–2013, Term 2 (ucl.ac.uk)]
+- #link("https://www.ucl.ac.uk/~ucahad0/3103_handout_7.pdf")[Handout \#7: The Baire category theorem and its consequences - Mathematics 3103 (Functional Analysis), Year 2012–2013, Term 2 (`ucl.ac.uk`)]
 - #link("https://en.wikipedia.org/wiki/Axiom_of_dependent_choice")[Axiom of dependent choice - Wikipedia]
 
 = 致谢
