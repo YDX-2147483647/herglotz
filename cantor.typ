@@ -346,6 +346,15 @@ $X$ 内有一点 $x$，考查 $x$ 的邻域 $U$ 和去心邻域 $U^0 := U withou
   以上两点在Baire空间中都不可能。下面就将介绍这种空间。
 ]
 
+#remark[$F_sigma$ 与meagre][
+  $F_sigma$ 被嵌入了meagre的定义——无内点的 $F_sigma$ 集必定meagre。原因如下。
+
+  1. 由内点和并集的定义，$A_n$ 的内点也是 $union.big_n A_n$ 的内点，于是“$union.big_n A_n$ 无内点 $=> A_n$ 均无内点”。
+  2. 若无内点的 $A_n$ 是闭集，则 $A_n$ 无处稠密，于是“$A_n$ 均无内点 $=> union.big_n A_n$ 符合meagre的定义”。
+
+  正命题“无内点 $=>$ meagre”成立，那反命题“meagre $=>$ 无内点”成立吗？这正是Baire空间要讨论的。
+]
+
 == Baire category theorem
 
 Baire空间有如下等价定义。
