@@ -575,7 +575,7 @@ $
 
 - #link("https://en.wikipedia.org/wiki/Poisson_summation_formula")[Poisson summation formula - Wikipedia]
 
-- #link("https://proofwiki.org/wiki/Poisson_Summation_Formula")[Poisson Summation Formula - ProofWiki]
+- #link("https://proofwiki.org/wiki/Poisson_Summation_Formula")[Poisson Summation Formula - Pr∞fWiki]
 
 = 致谢
 
