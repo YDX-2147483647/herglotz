@@ -120,6 +120,45 @@ $
     $
   ]
 
+#example[Euler totient $phi$][
+  有许多定理都能用Dirichlet卷积表示，$phi * 1 = id$ 便是一例。
+
+  Euler totient $phi(n)$ 的定义是 $1, 2, ..., n$ 中与 $n$ 互质的数的数量。这也可矫揉造作地写成
+  $
+  phi(n) := sum_(k perp n) 1,
+  $
+  其中 $k perp n$ 表示 $gcd(k,n) = 1$，即互质。#footnote[求和隐含 $1 <= k <= n$。]
+
+  我们试一些具体例子。#footnote[聪明的人能从中提炼出 $phi$ 的性质。]
+  - 例如 $7$ 是质数，$1,...,6$ 都与它互质，故 $phi(7) = 6$。
+  - 又如 $8 = 2^3$，于是 $2$ 的整倍数都和 $8$ 有公因子 $2$，只剩下 $1,3,5,7$ 与 $8$ 互质，故 $phi(8) = 4$。
+  - 再举个稍复杂的例子。$6 = 2 times 3$，抛去 $2$ 和 $3$ 的整倍数，和 $6$ 互质的只有 $1,5$，于是 $phi(6) = 2$。
+
+  现在来看 $phi * 1 = id$。按照Dirichlet卷积和函数 $1,id$ 的定义，这是说
+  $
+  sum_(b|n) phi(n/b) = n.
+  $
+
+  不要被形式吓到；这是可以被理解的。以 $n=6$ 为例，我们可列出 $(0,1]$ 中以 $6$ 为分母的分数，然后约分：
+  $
+  mat(1/6, 2/6, 3/6, 4/6, 5/6, 6/6)
+  = mat(1/6, 1/3, 1/2, 2/3, 5/6, 1/1).
+  $
+  - 分母 $6$ 与分子 $1,5$ 互质，约分不了，分母还是 $6$——这种情况按定义有 $phi(6)$ 个。
+  - 分母 $6$ 有因子 $2$，分子 $2,4$ 是其整倍数，可约去 $2$，分母变为 $3$——这种情况按定义有 $phi(3)$ 个。
+  - 同理，分母 $6$ 有因子 $3$，分子 $3$ 是其整倍数，约去后分母变为 $2$——这种情况按定义有 $phi(2)$ 个。
+  - $6$ 也是自己的因子，$6/6 = 1/1$——这种情况按定义有 $phi(1)$ 个。
+  以上讨论正是遍历 $b|n$ 及 $phi(n/b)$，并且不重不漏，加起来是最初列出的分数的数量，也就是 $6$。
+
+  总结一下，$phi * 1 = id$ 其实是说 ${k: k perp b}, space b|n$ 是 ${1,...,n}$ 的一个划分，即
+  $
+  cases(
+    b|n and b'|n ==> b=b' or {k: k perp b} sect {k: k perp b'} = emptyset,
+    union.big_(b|n) {k: k perp b} = {k: k <= n},
+  ).
+  $
+]
+
 #set heading(numbering: none)
 = 他典等
 
@@ -127,3 +166,4 @@ $
 - Wolfgang Schramm #link("http://math.colgate.edu/~integers/i50/i50.pdf")[The Fourier transform of functions of the greatest common divisor (`math.colgate.edu`)]
 - 3Blue1Brown #link("https://www.bilibili.com/video/BV1kx411q7kK/")[隐藏在素数规律中的 $π$ - 哔哩哔哩]
 - #link("https://proofwiki.org/wiki/M%C3%B6bius_Function_is_Multiplicative")[Möbius Function is Multiplicative - Pr∞fWiki]
+- #link("https://en.wikipedia.org/wiki/Dirichlet_convolution")[Dirichlet convolution - Wikipedia]
