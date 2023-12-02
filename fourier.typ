@@ -5,6 +5,7 @@
 #show: project.with(title: "最大公约数的Fourier变换", date: "2023年10月20、26日，11月20日，12月2日")
 
 #let fourier(symbol) = math.attach(math.cal("F"), br: h(-0.5em) + symbol)
+#let bullet = math.circle.filled.small
 
 整数 $k,n$ 的最大公约数记作 $gcd(k,n)$。固定 $n$、变动 $k$ 得到的函数 $k |-> gcd(k,n)$ 以 $n$ 为#strong[周期]。数列既然有周期，就可以应用#strong[离散Fourier变换]。
 
@@ -127,7 +128,7 @@ $
   $
   phi(n) := sum_(k perp n) 1,
   $
-  其中 $k perp n$ 表示 $gcd(k,n) = 1$，即互质。#footnote[求和隐含 $1 <= k <= n$。]
+  其中 $k perp n$ 表示 $gcd(k,n) = 1$，即互质。（求和隐含 $1 <= k <= n$）
 
   我们试一些具体例子。#footnote[聪明的人能从中提炼出 $phi$ 的性质。]
   - 例如 $7$ 是质数，$1,...,6$ 都与它互质，故 $phi(7) = 6$。
@@ -158,17 +159,41 @@ $
 
 有了 $phi * 1 = id$ 那种按约分程度重排集合的观点，结合一些算术知识，我们能推知一些原本看起来不着边际的定理。
 
-比如 $sum_l omega_n^l = 0$（单位根转一圈的中心是零）#footnote[可用等比数列求和公式计算，也可用乘 $omega_n$ 不变来论证。]，我们把求和范围 $l = 1,...,n$ 重排，立即得到
+#figure(
+  image("fig/One5Root.svg", width: 40%),
+  caption: [五次单位根 $omega_n^l$（蓝点）的中心是零 | #link("https://commons.wikimedia.org/wiki/File:One5Root.svg")[Wikimedia Commons `One5Root.svg`]]
+)
+
+比如若 $n > 1$，则 $sum_l omega_n^l = 0$（单位根转一圈的中心是零）#footnote[可用等比数列求和公式计算，也可用乘 $omega_n$ 不变来论证。]，我们把求和范围 $l = 1,...,n$ 重排，立即得到
 $
 0 = sum_(b|n) sum_(k perp n/b) omega_n^(b k)
 = sum_(a|n) sum_(k perp a) omega_a^k,
 $
 其中第二个等号把 $n/b$ 代换成了 $a$，同时约分 $(b k)/n = k/a$。
 
-#figure(
-  image("fig/One5Root.svg", width: 40%),
-  caption: [五次单位根 $omega_n^l$（蓝点）的中心是零 | #link("https://commons.wikimedia.org/wiki/File:One5Root.svg")[Wikimedia Commons `One5Root.svg`]]
-)
+这一结果也能用Dirichlet卷积表示，等式最右边是函数 $a |-> sum_(k perp a) omega_a^k$ 与 $1$ 的卷积。一般地，Ramanujan和#footnote[此处“和”指加法的结果，不是连词。] $c$ 的定义是
+$
+c_n (m) := sum_(k perp n) omega_n^(k m).
+$
+- 求和仍隐含 $1 <= k <= n$。
+- $m=1$ 时，$n |-> c_n (1)$（简记作 $c_bullet (1)$）正是我们刚才提到的 $a |-> sum_(k perp a) omega_a^k$。
+- $m = 0$ 时，$sum$ 相当于计数，即 $c_bullet (0) = phi$。
+
+看到这些事实，敏锐的人已可直奔本文结论；不过这之前我们再分析一下Dirichlet卷积。
+
+= Möbius反演
+
+#remark[咬文嚼字][
+  我们要谈的是数论函数的Möbius反演公式（Möbius inversion formula），而非复平面的Möbius变换。二者都以August Ferdinand Möbius命名。
+
+  前者也叫Möbius transform，后者是Möbius transformation。#link("https://www.merriam-webster.com/")[Merriam-Webster词典]中，_transform_ 之2就是“_transformation_ sense 3a(1)”，相关解释如下。
+  - #link("https://www.merriam-webster.com/dictionary/transform")[_transform_] 1: a mathematical element obtained from another by transformation.
+  - #link("https://www.merriam-webster.com/dictionary/transformation")[_transformation_] 3a(1): the operation of changing (as by rotation or mapping) one configuration or expression into another in accordance with a mathematical rule.
+
+  我个人感觉 transformation 更偏 $V->W$，如线性变换#footnote[有些作者规定“变换”必须 $V->V$，“映射”只需 $V->W$。按这种说法，linear transformation应当是线性“映射”。]；而 transform 更偏 $W^V -> W^V$，如 Fourier 变换。然而“$W^V$”也能看成一种“$V$”，比如Fourier变换就是一种线性变换。SE 有相关讨论：
+  - #link("https://math.stackexchange.com/questions/1154581/is-there-a-difference-between-transform-and-transformation")[definition - Is there a difference between transform and transformation? - Mathematics Stack Exchange]
+  - #link("https://english.stackexchange.com/questions/5454/transform-or-transformation/5456#5456")[word choice - Transform or transformation? - English Language & Usage Stack Exchange]
+]
 
 #set heading(numbering: none)
 = 他典等
