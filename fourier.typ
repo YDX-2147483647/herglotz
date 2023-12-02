@@ -2,7 +2,7 @@
 
 #import "template.typ": project, example, remark
 
-#show: project.with(title: "最大公约数的Fourier变换", date: "2023年10月20、26日，11月20日")
+#show: project.with(title: "最大公约数的Fourier变换", date: "2023年10月20、26日，11月20日，12月2日")
 
 #let fourier(symbol) = math.attach(math.cal("F"), br: h(-0.5em) + symbol)
 
@@ -150,14 +150,25 @@ $
   - $6$ 也是自己的因子，$6/6 = 1/1$——这种情况按定义有 $phi(1)$ 个。
   以上讨论正是遍历 $b|n$ 及 $phi(n/b)$，并且不重不漏，加起来是最初列出的分数的数量，也就是 $6$。
 
-  总结一下，$phi * 1 = id$ 其实是说 ${k: k perp b}, space b|n$ 是 ${1,...,n}$ 的一个划分，即
-  $
-  cases(
-    b|n and b'|n ==> b=b' or {k: k perp b} sect {k: k perp b'} = emptyset,
-    union.big_(b|n) {k: k perp b} = {k: k <= n},
-  ).
-  $
+  总结一下，$phi * 1 = id$ 其实是说 ${b k: k perp n/b}, space b|n$ 是 ${1,...,n}$ 的一个划分。
+  由 $gcd(b k, n) = b gcd(k, n/b)$，可将 $b k$ 看作 $k$，得到 ${b k : k perp n/b} = {k: gcd(k, n) = b}$，于是显然这些集合不重不漏。
 ]
+
+= Ramanujan和
+
+有了 $phi * 1 = id$ 那种按约分程度重排集合的观点，结合一些算术知识，我们能推知一些原本看起来不着边际的定理。
+
+比如 $sum_l omega_n^l = 0$（单位根转一圈的中心是零）#footnote[可用等比数列求和公式计算，也可用乘 $omega_n$ 不变来论证。]，我们把求和范围 $l = 1,...,n$ 重排，立即得到
+$
+0 = sum_(b|n) sum_(k perp n/b) omega_n^(b k)
+= sum_(a|n) sum_(k perp a) omega_a^k,
+$
+其中第二个等号把 $n/b$ 代换成了 $a$，同时约分 $(b k)/n = k/a$。
+
+#figure(
+  image("fig/One5Root.svg", width: 40%),
+  caption: [五次单位根 $omega_n^l$（蓝点）的中心是零 | #link("https://commons.wikimedia.org/wiki/File:One5Root.svg")[Wikimedia Commons `One5Root.svg`]]
+)
 
 #set heading(numbering: none)
 = 他典等
