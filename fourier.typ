@@ -7,9 +7,9 @@
 #let fourier(symbol) = math.attach(math.cal("F"), br: h(-0.5em) + symbol)
 #let bullet = math.circle.filled.small
 
-整数 $k,n$ 的最大公约数记作 $gcd(k,n)$。固定 $n$、变动 $k$ 得到的函数 $k |-> gcd(k,n)$ 以 $n$ 为#strong[周期]。数列既然有周期，就可以应用#strong[离散Fourier变换]。
+整数 $k,n$ 的最大公约数记作 $gcd(k,n)$。固定 $n$、变动 $k$ 得到的函数 $k |-> gcd(k,n)$ 以 $n$ 为*周期*。数列既然有周期，就可以应用*离散Fourier变换*。
 
-更进一步，任给#strong[数论函数]（任意 $ZZ^+ -> CC$ 函数）$f$，都能用 $gcd$“改造”成周期函数 $k |-> f(gcd(k,n))$（因为 $gcd(k,n) in ZZ^+$），且也能给它应用离散Fourier变换，结果是
+更进一步，任给*数论函数*（任意 $ZZ^+ -> CC$ 函数）$f$，都能用 $gcd$“改造”成周期函数 $k |-> f(gcd(k,n))$（因为 $gcd(k,n) in ZZ^+$），且也能给它应用离散Fourier变换，结果是
 $
 m |-> fourier(f)(m,n)
 := sum_(k=1)^n f(gcd(k,n)) times omega_n^(k m),

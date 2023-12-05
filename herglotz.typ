@@ -15,7 +15,7 @@ sum_(n in ZZ^+) 1 / n
 = 1/1 + 1/2 + 1/3 + dots.c
 = +oo.
 $
-若#strong[将 $n$ 平移] $1/2$，得到下面这个级数，它发散还是收敛呢？
+若*将 $n$ 平移* $1/2$，得到下面这个级数，它发散还是收敛呢？
 $
 sum_(n in ZZ^+) 1 / (n+1/2)
 = 1/1.5 + 1/2.5 + 1/3.5 + dots.c.
@@ -28,7 +28,7 @@ sum_(n=1)^N 1/(n+0.5) > 1/2 sum_(n=1)^N 1/n.
 $
 同理，任取 $x in RR$，$sum_(n in ZZ^+) 1 / (n+x)$ 都发散，当然这只有 $n+x$ 取不到零时才有意义。
 
-回顾调和级数，因有 $1/n$，$n$ 不能取零；而 $sum 1 / (n+1/2)$ 不再有此限制，那#strong[把 $ZZ^+$ 改成 $ZZ$] 会怎么样？#small[（这是个脑筋急转弯）]
+回顾调和级数，因有 $1/n$，$n$ 不能取零；而 $sum 1 / (n+1/2)$ 不再有此限制，那*把 $ZZ^+$ 改成 $ZZ$* 会怎么样？#small[（这是个脑筋急转弯）]
 
 $
 sum_(n in ZZ) 1 / (n+1/2)
@@ -107,7 +107,7 @@ dv(f, x)
 = - sum_(n in ZZ) 1/(x+n)^2
 <= 0.
 $
-—— $f$ 在每一定义区间内#strong[单调递减]。
+—— $f$ 在每一定义区间内*单调递减*。
 
 #remark[可导][
   这是子闭区间上一致收敛的结论。
@@ -133,7 +133,7 @@ $
 //  Ticks -> {Range[-1, 3, 1/2], None},
 //  AxesLabel -> Map[TraditionalForm, {x, f@x}]]
 
-合理怀疑 $f$ 是#strong[某种缩放的三角函数]。
+合理怀疑 $f$ 是*某种缩放的三角函数*。
 
 == 定量 <sec:quantitative>
 
@@ -149,7 +149,7 @@ $
 
 3. 根据 $f tilde 1/x$，$cot(pi x) = 1/(tan(pi x)) tilde 1/(pi x)$，$f$ 大约是 $pi cot(pi x)$。
 
-4. $f$ 和 $cot$ 满足相同的#strong[递归]性质，或者说二倍角公式。
+4. $f$ 和 $cot$ 满足相同的*递归*性质，或者说二倍角公式。
 
   #remark[要多想][
     如果你在 @sec:intro 动手处理过 $sum 1/(n+1/2)$，可能已发现类似性质。
@@ -312,9 +312,9 @@ $
 
 1844年 Cauchy 证明了 Liouville 定理：$CC$ 上的全纯函数若有界，则只能是常数。下面将用它证明 $g(z) := f(z) - pi cot(pi z) equiv 0$。
 
-- $CC$ 上#strong[全纯]：$CC without ZZ$ 自不必说，$ZZ$ 处单极点相消，可去。
-- #strong[有界]：待证。
-- #strong[常数 $=>$ 全零]：任取一点，分析 $ZZ$ 处极限是零（→ @sec:herglotz Herglotz trick）或利用 $f(1/2) = 0 = cot pi/2$。
+- $CC$ 上*全纯*：$CC without ZZ$ 自不必说，$ZZ$ 处单极点相消，可去。
+- *有界*：待证。
+- *常数 $=>$ 全零*：任取一点，分析 $ZZ$ 处极限是零（→ @sec:herglotz Herglotz trick）或利用 $f(1/2) = 0 = cot pi/2$。
 
 现在证明有界。
 

@@ -225,7 +225,7 @@ $X$ 内有一点 $x$，考查 $x$ 的邻域 $U$ 和去心邻域 $U^0 := U withou
   - *内点*（内部，interior）：$U subset S$
   - 边界点（*边界*，boundary）：$U sect S^complement != emptyset and U sect S != emptyset$
     - $U^0 sect S != emptyset and U sect S^complement != emptyset$
-    - #strong[孤立]点（isolated）：$U^0 subset S^complement and x in S$
+    - *孤立*点（isolated）：$U^0 subset S^complement and x in S$
 - 外点（外部，exterior）：$U subset S^complement$
 
 #figure(
@@ -366,10 +366,10 @@ $X$ 内有一点 $x$，考查 $x$ 的邻域 $U$ 和去心邻域 $U^0 := U withou
 
   1. *任何函数的间断点集合都 $F_sigma$。*
 
-    1. 函数 $f$ 在 $x$ 的#strong[振荡]（oscillation） $omega_f (x) := inf_(delta > 0) diam f(U_delta (x))$#footnote[这也是 $lim_(delta->0)$。（单调递减，非负，必存在极限）]，其中 $diam$ 表示集合的直径。
-    2. $f$ 在 $x$ 连续的定义是 $forall epsilon > 0, exists delta > 0, space f(U^0_delta (x)) subset U_epsilon (f(x))$，必要条件是 $diam f(U_delta (x)) < 2epsilon$，充分条件是 $diam f(U_delta (x)) < epsilon/2$，于是可知 $f$ 在 $x$ #strong[连续等价于 $omega_f (x) = 0$]。
+    1. 函数 $f$ 在 $x$ 的*振荡*（oscillation） $omega_f (x) := inf_(delta > 0) diam f(U_delta (x))$#footnote[这也是 $lim_(delta->0)$。（单调递减，非负，必存在极限）]，其中 $diam$ 表示集合的直径。
+    2. $f$ 在 $x$ 连续的定义是 $forall epsilon > 0, exists delta > 0, space f(U^0_delta (x)) subset U_epsilon (f(x))$，必要条件是 $diam f(U_delta (x)) < 2epsilon$，充分条件是 $diam f(U_delta (x)) < epsilon/2$，于是可知 $f$ 在 $x$ *连续等价于 $omega_f (x) = 0$*。
     3. $forall x in U_delta (x_0), space U_(2 delta) (x_0) supset U_delta (x)$，于是若 $omega(x_0) < Omega$，则 $forall x in U_delta (x_0), omega(x) < Omega$。换句话说，${x: omega(x) < Omega}$ 总是开集，故 *${x: omega(x) >= Omega}$ 总是闭集*。
-    4. $f$ 的#strong[间断点集合]是 ${x: omega(x) > 0}$，它也可写成
+    4. $f$ 的*间断点集合*是 ${x: omega(x) > 0}$，它也可写成
       $
       union.big_(n in NN) {x: omega(x) >= 1/n}
       $
@@ -442,7 +442,7 @@ Baire category theorem指出 $RR$ 是Baire空间，我们从“稠密开集的�
 
 我们的计划如下。
 
-0. 将 $A$ #strong[拆]为一系列互不相交的集合 $A_n$ （$n in NN$），取
+0. 将 $A$ *拆*为一系列互不相交的集合 $A_n$ （$n in NN$），取
   $
   f(x) = cases(
     1/n &space x in A_n,
@@ -450,15 +450,15 @@ Baire category theorem指出 $RR$ 是Baire空间，我们从“稠密开集的�
   ).
   $
 
-1. #strong[构造]时让 $A = union.big_(n in NN) A_n$ 稠密，而每个 $A_n$ 又足够稀松且补集性质优良。
+1. *构造*时让 $A = union.big_(n in NN) A_n$ 稠密，而每个 $A_n$ 又足够稀松且补集性质优良。
 
 2. *证明* $A$ 中都是间断点，$A^complement$ 中都是连续点。
 
 == 构造
 
-1. 由于 $QQ^2$ 可数，可#strong[构造 $I_n$] 遍历所有“两端点是有理数的开区间”。
+1. 由于 $QQ^2$ 可数，可*构造 $I_n$* 遍历所有“两端点是有理数的开区间”。
 
-2. 逐一#strong[构造 $A_n$] $subset I_n without union.big_(m < n) A_m$ 并且 $A_n$ 是#strong[无处稠密]的 *perfect* 集。
+2. 逐一*构造 $A_n$* $subset I_n without union.big_(m < n) A_m$ 并且 $A_n$ 是*无处稠密*的 *perfect* 集。
 
   因为前面的 $A_m$ 都无处稠密，故补集 $RR without union.big_(m < n) A_m$ 的内点稠密，于是 $I_n without union.big_(m < n) A_m$ 有内点。在这内点的邻域内，总有段区间可供我们自由发挥来满足要求，例如平移缩放Cantor集。
 
@@ -466,7 +466,7 @@ Baire category theorem指出 $RR$ 是Baire空间，我们从“稠密开集的�
 
   任取 $x in RR$ 及其邻域 $U$，必存在 $I_n subset U$（因为 $QQ$ 稠密），因而 $U sect A supset U sect A_n != emptyset$。
 
-4. 再论证#strong[补集 $A^complement$ 也稠密]。
+4. 再论证*补集 $A^complement$ 也稠密*。
 
   $A$ 是可数个无处稠密集 $A_n$ 之并，即 $A$ meagre，于是 $A^complement$ comeagre，而Baire空间中comeagre集都稠密。
 
@@ -488,7 +488,7 @@ Baire category theorem指出 $RR$ 是Baire空间，我们从“稠密开集的�
 
 == 证明
 
-- 证明 $A$ 中都是#strong[间断]点。
+- 证明 $A$ 中都是*间断*点。
 
   设 $x in A_n$。
 
@@ -497,7 +497,7 @@ Baire category theorem指出 $RR$ 是Baire空间，我们从“稠密开集的�
 
   我们构造了两个趋于 $x$ 的子列，极限分别是 $0,1/n$，不一致，故极限不存在。
 
-- 证明 $A^complement$ 中都是#strong[连续]点。
+- 证明 $A^complement$ 中都是*连续*点。
 
   设 $x in A^complement$，要证明 $f$ 在 $x$ 处的极限等于 $f(x) = 0$。
 
