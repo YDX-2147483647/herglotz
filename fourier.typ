@@ -2,7 +2,7 @@
 
 #import "template.typ": project, example, remark
 
-#show: project.with(title: "最大公约数的Fourier变换", date: "2023年10月20、26日，11月20日，12月2、13日")
+#show: project.with(title: "最大公约数的Fourier变换", date: "2023年10月20、26日，11月20日，12月2、13–14日")
 
 #let fourier(symbol) = math.attach(math.cal("F"), br: h(-0.5em) + symbol)
 #let bullet = math.circle.filled.small
@@ -171,7 +171,7 @@ $
 $
 其中第二个等号把 $n/b$ 代换成了 $a$，同时约分 $(b k)/n = k/a$。像 $omega_a^k, k perp a$ 这种不再能约分的单位根称作 _primitive_ $a$-th root of unity。
 
-这一结果也能用Dirichlet卷积表示，等式最右边是函数 $a |-> sum_(k perp a) omega_a^k$ 与 $1$ 的卷积。一般地，Ramanujan和#footnote[此处“和”指加法的结果，不是连词。] $c$ 的定义是
+这一结果也能用Dirichlet卷积表示，等式最右边是函数 $a |-> sum_(k perp a) omega_a^k$ 与 $1$ 的卷积。一般地，*Ramanujan和*#footnote[此处“和”指加法的结果，不是连词。] $c$ 的定义是
 $
 c_n (m) := sum_(k perp n) omega_n^(k m).
 $
@@ -308,12 +308,79 @@ $
 $
 mu(n) := cases(
   0 &quad n"包含重复质因子",
-  (-1)^k &quad n"有"k"个质因子，且不重复"
+  (-1)^k &quad n"的质因子互不重复，共"k"个"
 ).
 $
 
 == 再分析
 
+$mu(n)$ 的定义并不十分诡异，它大致是给质因子计数，还比较规整。例如按定义分类讨论，可论证“若 $a perp b$，则 $mu(a) times mu(b) = mu(a b)$”，这种性质称作multiplicative。
+
+#remark[$gcd$ 的性质][
+  $gcd(bullet, n)$ 也multiplicative。这是因为若 $a perp b$，则 $m|a and m|b <==> m | a b$。
+]
+
+从“给质因子计数”这一角度，我们也可直接论证 $1 * mu = delta$。
+
+$(1 * mu)(n) = sum_(b|n) mu(b)$。设 $n$ 的质因数分解是 $product_(k=1)^K (p_k)^(a_k)$，则抛去 $mu(b) = 0$ 的项，只考虑无重复质因子的 $b$，有如下可能。
+0. $b = 1 perp n$ 没有质因子，$mu(b) = 1$。
+1. $b in {p_1, ..., p_K}$ 有单个质因子，这 $K$ 种情况都有 $mu(b) = -1$。
+2. $b in {p_1 p_2, p_1 p_3, ..., p_2 p_3, ..., p_(K-1) p_K}$ 有 $2$ 个质因子，从 $K$ 个质因子选 $2$ 个有 $binom(K, 2)$ 种可能，他们都有 $mu(b) = (-1)^2$。
+3. $b$ 含 $3$ 个质因子有 $binom(K, 3)$ 种可能，他们都有 $mu(b) = (-1)^3$。
+4. ……
+
+因此由二项式定理
+$
+(1 * mu)(n)
+= sum_(k = 0)^K binom(K, k) (-1)^k
+= (1 - 1)^K
+= 0^K = 0,
+quad K != 0.
+$
+而 $K=0$ 当且仅当 $n = 1$，此时 $(1*mu)(n) = mu(1) = 1$。综合两种情况，可知 $1 * mu = delta$。
+
+== 反演
+
+知道了 $1$ 的逆是 $mu$，我们立即得到Möbius反演公式：对任意数论函数 $f,g$，
+$
+f = g * 1. quad ==> quad g = f * mu.
+$
+
+#example[$phi$ 的另一种表示][
+  上文我们按约分程度重排集合，证明了 $phi * 1 = id$。于是 $phi = phi * 1 * mu = id * mu$。
+]
+
+= Fourier变换
+
+回顾前文：
+
+- 按约分程度重排集合—— ${b k: k perp n/b}, space b|n$ 是 ${1,...,n}$ 的一个划分。
+
+- Ramanujan和—— $c_n (m) := sum_(k perp n) omega_n^(k m)$。
+
+- Fourier变换—— $k |-> f(gcd(k,n))$ 变换为 $m |-> fourier(f)(m,n) := sum_(k=1)^n f(gcd(k,n)) times omega_n^(k m)$。
+
+根据“按约分程度重排集合”，对任意数论函数 $g$，
+$
+sum_(k=1)^n g(k) = sum_(b|n) sum_(k perp n/b) g(b k) = sum_(a|n) sum_(k perp a) g(n/a k).
+$
+
+代入Fourier变换，得
+$
+fourier(f)(m,n) = sum_(b|n) sum_(k perp n/b) f(gcd(b k, n)) times omega_n^(b k m).
+$
+记 $a = n/b$，则 $k perp a$，于是 $gcd(b k, n) = gcd(b k, b a) = b = n/a$，并且 $omega_n^(b k) = omega_(b a)^(b k) = omega_a^k$。代回得
+$
+fourier(f)(m,n)
+&= sum_(a|n) sum_(k perp a) f(n/a) times omega_a^(k m)
+&= sum_(a|n) f(n/a) times sum_(k perp a) omega_a^(k m).
+$
+
+按照Dirichlet卷积与Ramanujan和的定义，$k |-> f(gcd(k,n))$ 的Fourier变换
+$
+m |-> fourier(f)(m,n) = (f * c_bullet (m))(n).
+$
+注意这没有把 $fourier(f)(bullet, n)$ 表示为 $f(gcd(bullet,n))$ 与谁的卷积，而是逐点表示成了某种卷积在 $n$ 处的值，各点卷积的对象并不相同。
 
 #set heading(numbering: none)
 = 他典等
@@ -322,5 +389,6 @@ $
 - #link("https://en.wikipedia.org/wiki/Euler%27s_totient_function#Fourier_transform")[Fourier transform - Computing Euler's totient function - Euler's totient function - Wikipedia]
 - Wolfgang Schramm #link("http://math.colgate.edu/~integers/i50/i50.pdf")[The Fourier transform of functions of the greatest common divisor (`math.colgate.edu`)]
 - 3Blue1Brown #link("https://www.bilibili.com/video/BV1kx411q7kK/")[隐藏在素数规律中的 $π$ - 哔哩哔哩]
-- #link("https://proofwiki.org/wiki/M%C3%B6bius_Function_is_Multiplicative")[Möbius Function is Multiplicative - Pr∞fWiki]
+- #link("https://proofwiki.org/wiki/Sum_of_M%C3%B6bius_Function_over_Divisors")[Sum of Möbius Function over Divisors - Pr∞fWiki]
 - #link("https://en.wikipedia.org/wiki/Dirichlet_convolution")[Dirichlet convolution - Wikipedia]
+- Mathologer #link("https://youtu.be/LFwSIdLSosI")[Euler’s Pi Prime Product and Riemann’s Zeta Function - YouTube]
