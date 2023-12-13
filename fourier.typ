@@ -2,7 +2,7 @@
 
 #import "template.typ": project, example, remark
 
-#show: project.with(title: "最大公约数的Fourier变换", date: "2023年10月20、26日，11月20日，12月2日")
+#show: project.with(title: "最大公约数的Fourier变换", date: "2023年10月20、26日，11月20日，12月2、13日")
 
 #let fourier(symbol) = math.attach(math.cal("F"), br: h(-0.5em) + symbol)
 #let bullet = math.circle.filled.small
@@ -77,7 +77,7 @@ $
     $id$, $id(n) equiv n$,
     cellx(align: start)[恒等，函数复合的单位元：$f compose id = id compose f = f$],
     $delta$, $delta(n) = cases(1 &space n = 1, 0 &space n != 1)$,
-    cellx(align: start)[Dirac $delta$，Dirichlet卷积的单位元：$f * delta = delta * f = f$],
+    cellx(align: start)[Dirac $delta$#footnote[有些文献写作 $n |-> delta_(n 1)$，这次 $delta$ 是 Kronecker $delta$。]，Dirichlet卷积的单位元：$f * delta = delta * f = f$],
   ),
   kind: table,
   caption: [三种“单位”数论函数]
@@ -87,7 +87,7 @@ $
   $ (f times g)(n) := f(n) times g(n). $
 - *函数复合*
   $ (f compose g)(n) := f(g(n)). $
-- *Dirichlet卷积*
+- *Dirichlet#footnote[Dirichlet是德国人，但名字源于法国。德语 _ch_ 发硬音，故名字应读作 _Dee-REECH-let_。说英语的人很少这样念。他们要么按法语读作 _Dee-REESH-lay_，要么各取一半读作 _Dee-REECH-lay_。（来源：《素数之恋》90页 §6.V 的作者注31.和译者注）]卷积*
   $
   (f * g)(n) &:= sum_(a b = n) f(a) g(b) \
   &= sum_(a|n) f(a) g(n/a) = sum_(b|n) f(n/b) g(b).
@@ -169,7 +169,7 @@ $
 0 = sum_(b|n) sum_(k perp n/b) omega_n^(b k)
 = sum_(a|n) sum_(k perp a) omega_a^k,
 $
-其中第二个等号把 $n/b$ 代换成了 $a$，同时约分 $(b k)/n = k/a$。
+其中第二个等号把 $n/b$ 代换成了 $a$，同时约分 $(b k)/n = k/a$。像 $omega_a^k, k perp a$ 这种不再能约分的单位根称作 _primitive_ $a$-th root of unity。
 
 这一结果也能用Dirichlet卷积表示，等式最右边是函数 $a |-> sum_(k perp a) omega_a^k$ 与 $1$ 的卷积。一般地，Ramanujan和#footnote[此处“和”指加法的结果，不是连词。] $c$ 的定义是
 $
@@ -195,9 +195,130 @@ $
   - #link("https://english.stackexchange.com/questions/5454/transform-or-transformation/5456#5456")[word choice - Transform or transformation? - English Language & Usage Stack Exchange]
 ]
 
+== 逆
+
+前面提到“数论*函数*之间Dirichlet*卷积*”相当于“相应Dirichlet*级数*直接*相乘*”，而后者满足交换律、结合律#footnote[
+  直接从定义 $(f * g)(n) &:= sum_(a b = n) f(a) g(b)$ 也能论证。
+]，于是我们可进一步考虑Dirichlet卷积意义下的*逆*。
+
+考虑最简单也最一般的 $1$ 的逆。
+
+刚刚我们得到 $n>1$ 时 $(1 * c_bullet (1))(n) = 0$，而 $(1 * c_bullet (1))(1)$（按Dirichlet卷积的定义）只有一项 $1 times c_1 (1) = 1 times 1^(1 times 1) = 1$，于是 $1 * c_bullet (1) = delta$ —— $c_bullet (1)$ 正是 $1$ 的逆。
+
+不过我们对 Ramanujan 和了解有限。比如 $c_74 (1)$ 这个数是多少？你知道它的定义是 $sum_(k perp 74) omega_74^k$，而 $74 = 2 times 37$，$k$ 可取 $1,3,5,7, ..., 35, 39, ..., 73$，然后这 $36$ 项加起来是几呢？哦，你可以先补上 $k=37$ 凑等比数列，$sum_(m = 0)^36 omega_74^(2m+1) = omega_74 times (1 - omega_74^74) \/ (1 - omega_74^2) = 0$，再减去 $omega_74^37 = omega_2 = -1$，得到 $c_74 (1) = 1$。行，可 $omega_(37 times 41) (1)$ 怎么办呢？可以算两次等比数列的和。那 $omega_(37 times 41 times 43) (1)$？三重求和。……
+
+无论如何，$c_74 (1) = 1$ 总有些蹊跷，事实上 $c_bullet (1) in {0, plus.minus 1}$，下面将介绍其中缘由。
+
+#remark[时间线][
+  我们将发现 $c_bullet (1)$ 是 Möbius $mu$ 函数。
+
+  - Ramanujan（1887–1920）在1918年提出Ramanujan和。
+
+  - Mertens（1840–1927）在1874年为 Möbius 函数引入了记号 $mu(n)$。
+
+    以他自己名字命名的Mertens函数是 $sum mu(n)$，它在 $n -> +oo$ 的渐近性质与Riemann猜想有关。
+
+  - Riemann（1826–1866）1859年的9页文章 _Ueber die Anzahl der Primzahlen unter einer gegebenen Grösse_（关于小于给定数的质数数量）开创了解析数论。
+
+  - Möbius（1790–1868）在1832年提出Möbius函数。
+
+  - Gauß（1777–1855）在1801年事实上讨论了Möbius函数，他给出 $sum_(k perp a) omega_a^k in {0, plus.minus 1}$ 以及每一种情况的充要条件。
+
+  （Gauß、Möbius、Mertens三个年份的来源：#link("https://mathworld.wolfram.com/MoebiusFunction.html")[Möbius Function - Wolfram MathWorld]）
+
+  下面我们将提到Euler十八世纪的工作。
+]
+
+== Euler积公式
+
+$1$ 对应的Dirichlet级数正是Riemann $zeta$ 函数
+$
+zeta(s) := sum_n 1/n^s.
+$
+（求和隐含 $n in ZZ^+$）如果能把 $1 / zeta(s)$ 写成Dirichlet级数的形式，那么系数就是 $1$ 的逆。
+
+怎么操作呢？先把 $zeta(s)$ 写成简单因子的乘积。Euler 1737年撰写的 _Variae observationes circa series infinitas_#footnote[
+  你可以在#link("http://eulerarchive.maa.org/")[The Euler Archive (`eulerarchive.maa.org`)] 的（左边栏）Search archive by → Subject and Index →（中间靠下）Search by Subject → Mathematics → Infinite Series下载到72号文章 _Variae observationes circa series infinitas_ 的拉丁原文和英语、德语翻译。
+] 的定理8指出
+$
+sum_n 1/n^s = product_p 1/(1-p^(-s)),
+$
+其中 $p$ 取遍质数。
+
+#remark[证明Euler积公式][
+  这个证明重写了一遍Ἐρατοσθένης #footnote[Ἐρατοσθένης (Eratosthenes) 这个名字的词源是 _ἐρᾰτός_ (eratós, “lovely”) + _σθένος_ (sthénos, “strong”)。] 质数筛，改写自Euler原文。
+
+  对比
+  $
+  zeta(s)
+  = sum_n 1/n^s
+  &= 1 + 1/2^s + 1/3^s + 1/4^s + 1/5^s + dots.c, \
+  2^(-s) zeta(s)
+  = sum_n 1/(2n)^s
+  &= 1/2^s + 1/4^s + dots.c,
+  $
+  两项相减则从 $ZZ^+$ 中删去 $2$ 的倍数，即
+  $
+  (1 - 2^(-s)) zeta(s) = 1 + 1/3^s + 1/5^s + dots.c.
+  $
+
+  同理，$(1-2^(-s)) (1-3^(-s)) zeta(s)$ 会继续删去 $3$ 的倍数。以此类推，逐个删去 $p$ 的倍数，最后只剩第一项 $1$。于是
+
+  $
+  product_p (1-p^(-s)) times zeta(s) = 1.
+  $
+]
+
+#remark[再次证明Euler积公式][
+  第一个证明是从 $ZZ^+$ 筛去质数的倍数；这个证明是从用质因数乘积重组 $ZZ^+$，来自 #link("https://mathworld.wolfram.com/EulerProduct.html")[Wolfram MathWorld]。
+
+  $
+  product_p 1/(1-p^(-s))
+  &= product_p sum_(k in NN) 1 / p^(k s) \
+  &= 1 + sum_p 1/p^s + sum_(p_1 <= p_2) 1/(p_1 p_2)^s + dots.c \
+  &= sum_n 1/n^s.
+  $
+  1. 第一个等号是几何级数 $1/(1-q) = sum_(k in NN) q^k$ 。
+  2. 第二个等号乘开了级数。
+    0. 首项所有 $k$ 取零。
+    1. 次项所有 $k$ 的和是 $1$：一个质数 $p$ 对应的 $k$ 取 $1$，其余都取零。
+    2. 下一项所有 $k$ 的和是 $2$：要么两个质数 $p_1,p_2$ 对应的 $k$ 取 $1$，其余取零；要么 $p_1=p_2$ 对应的 $k$ 取 $2$，其余取零。
+    3. ……
+  3. 第三个等号是用质因数重组。
+]
+
+现在把 $1/zeta(s)$ 写成Dirichlet乘积。
+$
+1/zeta(s)
+&= product_p (1 - 1/p^s) \
+&= 1 - sum_p 1/p^s + sum_(p_1<p_2) 1/(p_1 p_2)^s - sum_(p_1<p_2<p_3) 1/(p_1 p_2 p_3)^s plus.minus dots.c \
+&= 1 - 1/2^s - 1/3^s - 1/5^s + 1/(2 times 3)^s - 1/7^s - 1/(2 times 5)^s plus.minus dots.c \
+&=: mu(n) / n^s.
+$
+1. 第一个等号是Euler积公式。
+2. 第二个等号乘开了级数。
+  0. 首项全都取 $1$。
+  1. 次项一个取 $- 1/p^s$，其余都取 $1$。
+  2. 下一项仅 $2$ 个取 $- 1/p^s$，其余都取 $1$。总计 $2$ 个负号，负负得正。
+  3. ……
+3. 第三个等号按分母从小到大排序。
+4. 最后一个等号整理成Dirichlet级数，将系数记作 $mu(n)$
+
+这样我们就算得 $1$ 的逆也等于 $mu$，它通称 *Möbius 函数*。按照规律，
+$
+mu(n) := cases(
+  0 &quad n"包含重复质因子",
+  (-1)^k &quad n"有"k"个质因子，且不重复"
+).
+$
+
+== 再分析
+
+
 #set heading(numbering: none)
 = 他典等
 
+- John Derbyshire著、陈为蓬译《素数之恋》（ISBN 978-7-5428-4776-8）
 - #link("https://en.wikipedia.org/wiki/Euler%27s_totient_function#Fourier_transform")[Fourier transform - Computing Euler's totient function - Euler's totient function - Wikipedia]
 - Wolfgang Schramm #link("http://math.colgate.edu/~integers/i50/i50.pdf")[The Fourier transform of functions of the greatest common divisor (`math.colgate.edu`)]
 - 3Blue1Brown #link("https://www.bilibili.com/video/BV1kx411q7kK/")[隐藏在素数规律中的 $π$ - 哔哩哔哩]
