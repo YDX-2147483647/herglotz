@@ -121,6 +121,10 @@ $
     $
   ]
 
+#remark[Dirichlet卷积没有丢点][
+  如无其它限制，完全知道 $f,g$ 才能计算 $f times g$。然而 $f*g$ 看似不需要，例如 $n = 4$ 时结果为 $f(1)g(4) + f(2)g(2) + f(4)g(1)$，用不到 $f(3),g(3)$。不过 $f*g$ 是函数，其它 $n$ 会用到。可证明若 $g$ 满足 $forall f, f*g equiv 0$，则 $g equiv 0$。
+]
+
 #example[Euler totient $phi$][
   有许多定理都能用Dirichlet卷积表示，$phi * 1 = id$ 便是一例。
 
@@ -350,6 +354,26 @@ $
   上文我们按约分程度重排集合，证明了 $phi * 1 = id$。于是 $phi = phi * 1 * mu = id * mu$。
 ]
 
+#example[$c_n (m)$ 总是整数][
+  虽然 $c_n (m)$ 的定义是一堆复数之和，但 $m in ZZ$ 时总有 $c_n (m) in ZZ$。
+
+  只用最基础的数论，我们可论证 $c_n (m) in RR$：$k perp n <==> (n-k) perp n$，而 $m in ZZ$ 时 $(n-k)m equiv -k m space (mod n)$，于是 $c_n (m)$ 的定义取共轭不变。下面我们考虑Möbius反演。
+
+  追究引入Ramanujan和的过程，可推广 $1 * c_bullet (1) = delta$：（这套操作后文马上会再次用到）
+  $
+  (1 * c_bullet (m))(n)
+  &= sum_(a|n) sum_(k|a) omega_a^(k m)
+  &= sum_(b|n) sum_(k|n/b) omega_n^(b k m)
+  &= sum_(l=1)^n omega_n^(l m).
+  $
+  现在给等比数列求和：
+  - 公比 $omega_n^m = 1$（即 $n|m$）时，和是 $n times 1 = n$；
+  - 公比 $omega_n^m != 1$ 时，$(omega_n^m)^n = omega_n^(n m) = omega_1^m = 1$，这个数列在单位圆上均匀分布，和是零。
+  记 $f := 1 * c_bullet (m)$。不管是哪种情况，都有 $f(n) in ZZ$。
+
+  由Möbius反演，$c_bullet (m) = mu * 1 * c_bullet (m) = mu * f$。注意Dirichlet卷积的每一项都是整数，从而加起来也是整数。
+]
+
 = Fourier变换
 
 回顾前文：
@@ -381,6 +405,36 @@ $
 m |-> fourier(f)(m,n) = (f * c_bullet (m))(n).
 $
 注意这没有把 $fourier(f)(bullet, n)$ 表示为 $f(gcd(bullet,n))$ 与谁的卷积，而是逐点表示成了某种卷积在 $n$ 处的值，各点卷积的对象并不相同。
+
+#remark[更常见的那种Fourier变换][
+  以 $n$ 为周期的 $ZZ -> CC$ 函数 $k |-> f(k)$，它的Fourier变换是
+  $
+  m &|-> sum_(k=1)^n f(k) times omega_n^(k m) \
+  &= sum_(k=1)^n f(k) times omega_n^(-(-k) m) \
+  &= (f star h_bullet (m))(0).
+  $
+  其中 $star$ 是更常见的那种卷积，$h_k (m) = omega_n^(k m)$。（$f star h_bullet (m)$ 是周期函数，在 $0$ 处的值也等于在 $n$ 处的值。）
+]
+
+#figure(
+  grid(
+    columns: (1fr, 1fr),
+    image("fig/Ramanujan_sum-fix_m.png"),
+    image("fig/Ramanujan_sum-fix_n.png"),
+  ),
+  caption: [
+    $c_bullet (m)$ 与 $c_n (bullet)$
+
+    每一条图线的阴影水平线是横轴，横轴的绝对高度没有意义。
+
+    $c_bullet (m): ZZ^+ -> ZZ$，画图时用线段连接离散点；$c_n (bullet): RR -> CC$，分实虚绘制，有阴影的为实部。
+  ],
+)
+
+#figure(
+  image("fig/Ramanujan_sum-complex.png", width: 80%),
+  caption: [$c_n (RR)$ 在 $CC$ 中]
+)
 
 #set heading(numbering: none)
 = 他典等
