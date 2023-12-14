@@ -12,7 +12,7 @@
 更进一步，任给*数论函数*（任意 $ZZ^+ -> CC$ 函数）$f$，都能用 $gcd$“改造”成周期函数 $k |-> f(gcd(k,n))$（因为 $gcd(k,n) in ZZ^+$），且也能给它应用离散Fourier变换，结果是
 $
 m |-> fourier(f)(m,n)
-:= sum_(k=1)^n f(gcd(k,n)) times omega_n^(k m),
+:= sum_(k=1)^n f(gcd(k,n)) times omega_n^(-k m),
 $
 其中 $omega_n$ 是 $n$ 次单位根（$omega_n := exp((2pi i)/n)$，$omega_n^l := exp(2 pi i l/n)$）。
 
@@ -36,12 +36,12 @@ $
   $
   ... space.quad &|-> space.quad ... \
   \
-  m=1 space.quad &|-> space.quad i + 2i^2 + i^3 + 4i^4 = i - 2 - i + 4 &= 2. \
-  m=2 space.quad &|-> space.quad i^2 + 2i^4 + i^6 + 4i^8 = -1 + 2 - 1 + 4 &= 4. \
-  m=3 space.quad &|-> space.quad i^3 + 2i^6 + i^9 + 4i^12 = -i -2 +i + 4 &= 2. \
-  m=4 space.quad &|-> space.quad i^4 + 2i^8 + i^12 + 4i^16 = 1 + 2 + 1 + 4 &= 8. \
+  m=1 space.quad &|-> space.quad i + 2i^(-2) + i^(-3) + 4i^(-4) = -i - 2 + i + 4 &= 2. \
+  m=2 space.quad &|-> space.quad i^(-2) + 2i^(-4) + i^(-6) + 4i^(-8) = -1 + 2 - 1 + 4 &= 4. \
+  m=3 space.quad &|-> space.quad i^(-3) + 2i^(-6) + i^(-9) + 4i^(-12) = i -2 -i + 4 &= 2. \
+  m=4 space.quad &|-> space.quad i^(-4) + 2i^(-8) + i^(-12) + 4i^(-16) = 1 + 2 + 1 + 4 &= 8. \
   \
-  m=5 space.quad &|-> space.quad i^5 + 2i^10 + i^15 + 4i^20 = i - 2 - i + 4 &= 2. \
+  m=5 space.quad &|-> space.quad i^(-5) + 2i^(-10) + i^(-15) + 4i^(-20) = -i - 2 + i + 4 &= 2. \
   ... space.quad &|-> space.quad ... \
   $
 ]
@@ -382,7 +382,7 @@ $
 
 - Ramanujan和—— $c_n (m) := sum_(k perp n) omega_n^(k m)$。
 
-- Fourier变换—— $k |-> f(gcd(k,n))$ 变换为 $m |-> fourier(f)(m,n) := sum_(k=1)^n f(gcd(k,n)) times omega_n^(k m)$。
+- Fourier变换—— $k |-> f(gcd(k,n))$ 变换为 $m |-> fourier(f)(m,n) := sum_(k=1)^n f(gcd(k,n)) times omega_n^(-k m)$。
 
 根据“按约分程度重排集合”，对任意数论函数 $g$，
 $
@@ -391,19 +391,25 @@ $
 
 代入Fourier变换，得
 $
-fourier(f)(m,n) = sum_(b|n) sum_(k perp n/b) f(gcd(b k, n)) times omega_n^(b k m).
+fourier(f)(m,n) = sum_(b|n) sum_(k perp n/b) f(gcd(b k, n)) times omega_n^(-b k m).
 $
-记 $a = n/b$，则 $k perp a$，于是 $gcd(b k, n) = gcd(b k, b a) = b = n/a$，并且 $omega_n^(b k) = omega_(b a)^(b k) = omega_a^k$。代回得
+记 $a = n/b$，则 $k perp a$，于是 $gcd(b k, n) = gcd(b k, b a) = b = n/a$，并且 $omega_n^(-b k) = omega_(b a)^(-b k) = omega_a^(-k)$。代回得
 $
 fourier(f)(m,n)
-&= sum_(a|n) sum_(k perp a) f(n/a) times omega_a^(k m)
-&= sum_(a|n) f(n/a) times sum_(k perp a) omega_a^(k m).
+&= sum_(a|n) sum_(k perp a) f(n/a) times omega_a^(-k m)
+&= sum_(a|n) f(n/a) times sum_(k perp a) omega_a^(-k m).
 $
+按照Dirichlet卷积与Ramanujan和的定义，这等于 $(f * c_bullet (-m))(n)$。
 
-按照Dirichlet卷积与Ramanujan和的定义，$k |-> f(gcd(k,n))$ 的Fourier变换
-$
-m |-> fourier(f)(m,n) = (f * c_bullet (m))(n).
-$
+又 $c_bullet (m) in RR$，代入 $c_bullet (-m) = c_bullet (m)$，得如下形式。
+
+#align(center, rect(inset: (x: 1em))[
+  $k |-> f(gcd(k,n))$ 的Fourier变换
+  $
+  m |-> fourier(f)(m,n) = (f * c_bullet (m))(n).
+  $
+])
+
 注意这没有把 $fourier(f)(bullet, n)$ 表示为 $f(gcd(bullet,n))$ 与谁的卷积，而是逐点表示成了某种卷积在 $n$ 处的值，各点卷积的对象并不相同。
 
 #remark[更常见的那种Fourier变换][
@@ -435,6 +441,17 @@ $
   image("fig/Ramanujan_sum-complex.png", width: 80%),
   caption: [$c_n (RR)$ 在 $CC$ 中]
 )
+
+= 应用
+
+结合刚刚得到的
+$
+m |-> fourier(f)(m,n) = (f * c_bullet (m))(n)
+$
+与Fourier反变换
+$
+k |-> f(gcd(k,n)) = 1/n sum_(m=1)^n fourier(f)(m,n) times omega_n^(k m).
+$
 
 #set heading(numbering: none)
 = 他典等
