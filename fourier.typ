@@ -2,7 +2,7 @@
 
 #import "template.typ": project, example, remark
 
-#show: project.with(title: "最大公约数的Fourier变换", date: "2023年10月20、26日，11月20日，12月2、13–14日")
+#show: project.with(title: "最大公约数的Fourier变换", date: "2023年10月20、26日，11月20日，12月2、13–15日")
 
 #let fourier(symbol) = math.attach(math.cal("F"), br: h(-0.5em) + symbol)
 #let bullet = math.circle.filled.small
@@ -452,6 +452,69 @@ $
 $
 k |-> f(gcd(k,n)) = 1/n sum_(m=1)^n fourier(f)(m,n) times omega_n^(k m).
 $
+
+#example[用新方法表示 $gcd$][
+  取 $f = id$，则
+  $
+  fourier(id)(m,n)
+  = (id * c_bullet (m))(n)
+  = sum_(b|n) n/b times c_b (m).
+  $
+  于是
+  $
+  gcd(k,n)
+  &= id(gcd(k,n)) \
+  &= 1/n sum_(m=1)^n fourier(id)(m,n) times omega_n^(k m) \
+  &= 1/n sum_(m=1)^n sum_(b|n) n/b times c_b (m) times omega_n^(k m) \
+  &= sum_(m=1)^n omega_n^(k m) sum_(b|n) (c_b (m))/b.
+  $
+]
+
+#example[用 $gcd$ 表示新东西][
+  上面用了Fourier反变换，这里再用Fourier正变换。
+
+  $
+  sum_(k=1)^n gcd(k,n) omega_n^(-k m) =: fourier(id)(m,n) = (id * c_bullet (m))(n).
+  $
+  注意Fourier变换结果是个函数，我们直接得到一组结果。
+  $
+  sum_(k=1)^n gcd(k,n) &= (id * phi)(n). \
+  sum_(k=1)^n gcd(k,n) omega_n^(-k) &= (id * mu)(n). \
+  ... &= ...
+  $
+]
+
+#example[重看 $1 * c_bullet (1) = delta$][
+  $1$ 的 Fourier 变换是 $delta$，而按我们的公式这也等于 $1 * c_bullet (1)$。
+]
+
+#example[乘法][
+  以Fourier正变换，取 $m=0$ 为例，$sum_k f(gcd(k,n)) =: fourier(f)(0,n) = (log * phi)(n)$。
+
+  取 $f = log compose g$，得 LHS 的 $exp$ 为
+  $
+  exp sum_k log g(gcd(k,n))
+  = product_k g(gcd(k,n)),
+  $
+  而 RHS 的 $exp$ 为
+  $
+  exp(((log compose g) * phi)(n))
+  = exp sum_(a b = n) log g(a) times phi(b)
+  = product_(a b = n) g(a)^phi(b).
+  $
+]
+
+#example[$CC$ 的大门][
+  数论常常限制在 $ZZ^+$ 中，而Fourier变换式字面上在 $CC$ 中，于是我们的公式可让一些 $ZZ^+$ 的概念拓展到 $CC$。
+
+  举个例子，将互质概念从 $ZZ^+ times ZZ^+$ 拓展到 $CC times ZZ^+$。$k perp n
+  <=> delta(gcd(k,n)) != 0$，注意按我们的公式 $fourier(delta)(m,bullet) = delta * c_bullet (m) = c_bullet (m)$。于是按Fourier反变换，
+  $
+  delta(gcd(k,n))
+  = 1/n sum_m c_n (m) times omega_n^(k m)
+  $
+  它等于零即向量 $c_n (bullet)$ 与 $m |-> omega_n^(k m)$ 正交，后者对一般 $k in CC$ 也有意义。
+]
 
 #set heading(numbering: none)
 = 他典等
