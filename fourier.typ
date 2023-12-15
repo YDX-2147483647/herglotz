@@ -2,7 +2,7 @@
 
 #import "template.typ": project, example, remark
 
-#show: project.with(title: "最大公约数的Fourier变换", date: "2023年10月20、26日，11月20日，12月2、13–15日")
+#show: project.with(title: "最大公约数的Fourier变换", date: "2023年10月20、26日，11月20日，12月2、13–16日")
 
 #let fourier(symbol) = math.attach(math.cal("F"), br: h(-0.5em) + symbol)
 #let bullet = math.circle.filled.small
@@ -145,6 +145,10 @@ $
   $
 
   不要被形式吓到；这可以被理解。以 $n=6$ 为例，我们可列出 $(0,1]$ 中以 $6$ 为分母的分数，然后约分：
+  #figure(
+    image("fig/partition.png", width: 30%),
+    caption: [按约分程度将 ${1,...,6}$ 分成几类]
+  )
   $
   mat(1/6, 2/6, 3/6, 4/6, 5/6, 6/6)
   = mat(1/6, 1/3, 1/2, 2/3, 5/6, 1/1).
