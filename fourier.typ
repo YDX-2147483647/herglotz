@@ -7,7 +7,7 @@
 #let fourier(symbol) = math.attach(math.cal("F"), br: h(-0.5em) + symbol)
 #let bullet = math.circle.filled.small
 
-整数 $k,n$ 的最大公约数记作 $gcd(k,n)$。固定 $n$、变动 $k$ 得到的函数 $k |-> gcd(k,n)$ 以 $n$ 为*周期*。数列既然有周期，就可以应用*离散Fourier变换*。
+整数 $k,n$ 的*最大公约数*记作 $gcd(k,n)$。固定 $n$、变动 $k$ 得到的函数 $k |-> gcd(k,n)$ 以 $n$ 为*周期*。数列既然有周期，就可以应用*离散Fourier变换*。
 
 更进一步，任给*数论函数*（任意 $ZZ^+ -> CC$ 函数）$f$，都能用 $gcd$“改造”成周期函数 $k |-> f(gcd(k,n))$（因为 $gcd(k,n) in ZZ^+$），且也能给它应用离散Fourier变换，结果是
 $
@@ -16,7 +16,7 @@ m |-> fourier(f)(m,n)
 $
 其中 $omega_n$ 是 $n$ 次单位根（$omega_n := exp((2pi i)/n)$，$omega_n^l := exp(2 pi i l/n)$）。
 
-我们最终将导出 $fourier(f)$ 的另一公式。
+我们最终将导出 $fourier(f)$ 的另一公式。（这一结果是 Wolfgang Schramm 2008年的文章）
 
 #example[具体例子][
   以 $k |-> gcd(k, 4)$ 为例。
@@ -144,7 +144,7 @@ $
   sum_(b|n) phi(n/b) = n.
   $
 
-  不要被形式吓到；这是可以被理解的。以 $n=6$ 为例，我们可列出 $(0,1]$ 中以 $6$ 为分母的分数，然后约分：
+  不要被形式吓到；这可以被理解。以 $n=6$ 为例，我们可列出 $(0,1]$ 中以 $6$ 为分母的分数，然后约分：
   $
   mat(1/6, 2/6, 3/6, 4/6, 5/6, 6/6)
   = mat(1/6, 1/3, 1/2, 2/3, 5/6, 1/1).
@@ -175,7 +175,7 @@ $
 $
 其中第二个等号把 $n/b$ 代换成了 $a$，同时约分 $(b k)/n = k/a$。像 $omega_a^k, k perp a$ 这种不再能约分的单位根称作 _primitive_ $a$-th root of unity。
 
-这一结果也能用Dirichlet卷积表示，等式最右边是函数 $a |-> sum_(k perp a) omega_a^k$ 与 $1$ 的卷积。一般地，*Ramanujan和*#footnote[此处“和”指加法的结果，不是连词。] $c$ 的定义是
+这一结果也能用Dirichlet卷积表示——等式最右边正是函数 $a |-> sum_(k perp a) omega_a^k$ 与 $1$ 的卷积。一般地，*Ramanujan和*#footnote[此处“和”指加法的结果，不是连词。] $c$ 的定义是
 $
 c_n (m) := sum_(k perp n) omega_n^(k m).
 $
@@ -226,9 +226,9 @@ $
 
   - Möbius（1790–1868）在1832年提出Möbius函数。
 
-  - Gauß（1777–1855）在1801年事实上讨论了Möbius函数，他给出 $sum_(k perp a) omega_a^k in {0, plus.minus 1}$ 以及每一种情况的充要条件。
-
-  （Gauß、Möbius、Mertens三个年份的来源：#link("https://mathworld.wolfram.com/MoebiusFunction.html")[Möbius Function - Wolfram MathWorld]）
+  - Gauß（1777–1855）在1801年事实上讨论了Möbius函数，他给出 $sum_(k perp a) omega_a^k in {0, plus.minus 1}$ 以及每一种情况的充要条件。#footnote[
+      Gauß、Möbius、Mertens三个年份的来源是 #link("https://mathworld.wolfram.com/MoebiusFunction.html")[Möbius Function - Wolfram MathWorld]。
+    ]
 
   下面我们将提到Euler十八世纪的工作。
 ]
@@ -274,7 +274,7 @@ $
 ]
 
 #remark[再次证明Euler积公式][
-  第一个证明是从 $ZZ^+$ 筛去质数的倍数；这个证明是从用质因数乘积重组 $ZZ^+$，来自 #link("https://mathworld.wolfram.com/EulerProduct.html")[Wolfram MathWorld]。
+  第一个证明是从 $ZZ^+$ 筛去质数的倍数；这个证明是从用质因数乘积重组 $ZZ^+$，来自 #link("https://mathworld.wolfram.com/EulerProduct.html")[Euler Product - Wolfram MathWorld]。
 
   $
   product_p 1/(1-p^(-s))
@@ -316,7 +316,7 @@ mu(n) := cases(
 ).
 $
 
-== 再分析
+== 再看 $1$ 的逆
 
 $mu(n)$ 的定义并不十分诡异，它大致是给质因子计数，还比较规整。例如按定义分类讨论，可论证“若 $a perp b$，则 $mu(a) times mu(b) = mu(a b)$”，这种性质称作multiplicative。
 
@@ -362,14 +362,14 @@ $
   追究引入Ramanujan和的过程，可推广 $1 * c_bullet (1) = delta$：（这套操作后文马上会再次用到）
   $
   (1 * c_bullet (m))(n)
-  &= sum_(a|n) sum_(k|a) omega_a^(k m)
-  &= sum_(b|n) sum_(k|n/b) omega_n^(b k m)
+  &= sum_(a|n) sum_(k perp a) omega_a^(k m)
+  &= sum_(b|n) sum_(k perp n/b) omega_n^(b k m)
   &= sum_(l=1)^n omega_n^(l m).
   $
   现在给等比数列求和：
   - 公比 $omega_n^m = 1$（即 $n|m$）时，和是 $n times 1 = n$；
   - 公比 $omega_n^m != 1$ 时，$(omega_n^m)^n = omega_n^(n m) = omega_1^m = 1$，这个数列在单位圆上均匀分布，和是零。
-  记 $f := 1 * c_bullet (m)$。不管是哪种情况，都有 $f(n) in ZZ$。
+  综合两种情况，记 $f := 1 * c_bullet (m)$，则总有 $f(n) in ZZ$。
 
   由Möbius反演，$c_bullet (m) = mu * 1 * c_bullet (m) = mu * f$。注意Dirichlet卷积的每一项都是整数，从而加起来也是整数。
 ]
@@ -393,15 +393,15 @@ $
 $
 fourier(f)(m,n) = sum_(b|n) sum_(k perp n/b) f(gcd(b k, n)) times omega_n^(-b k m).
 $
-记 $a = n/b$，则 $k perp a$，于是 $gcd(b k, n) = gcd(b k, b a) = b = n/a$，并且 $omega_n^(-b k) = omega_(b a)^(-b k) = omega_a^(-k)$。代回得
+注意 $gcd(b k, n) = b gcd(k, n/b) = b$ 不含 $k$，并且记 $a = n/b$ 则 $omega_n^(-b k) = omega_(b a)^(-b k) = omega_a^(-k)$。代回得
 $
 fourier(f)(m,n)
-&= sum_(a|n) sum_(k perp a) f(n/a) times omega_a^(-k m)
-&= sum_(a|n) f(n/a) times sum_(k perp a) omega_a^(-k m).
+&= sum_(a b = n) sum_(k perp a) f(b) times omega_a^(-k m)
+&= sum_(a b = n) f(b) times sum_(k perp a) omega_a^(-k m).
 $
 按照Dirichlet卷积与Ramanujan和的定义，这等于 $(f * c_bullet (-m))(n)$。
 
-又 $c_bullet (m) in RR$，代入 $c_bullet (-m) = c_bullet (m)$，得如下形式。
+又 $c_bullet (m) in RR$ 共轭不变，代入 $c_bullet (-m) = c_bullet (m)$，得如下形式。
 
 #align(center, rect(inset: (x: 1em))[
   $k |-> f(gcd(k,n))$ 的Fourier变换
@@ -415,11 +415,11 @@ $
 #remark[更常见的那种Fourier变换][
   以 $n$ 为周期的 $ZZ -> CC$ 函数 $k |-> f(k)$，它的Fourier变换是
   $
-  m &|-> sum_(k=1)^n f(k) times omega_n^(k m) \
-  &= sum_(k=1)^n f(k) times omega_n^(-(-k) m) \
+  m &|-> sum_(k=1)^n f(k) times omega_n^(k m)
+  &= sum_(k=1)^n f(k) times omega_n^(-(-k) m)
   &= (f star h_bullet (m))(0).
   $
-  其中 $star$ 是更常见的那种卷积，$h_k (m) = omega_n^(k m)$。（$f star h_bullet (m)$ 是周期函数，在 $0$ 处的值也等于在 $n$ 处的值。）
+  其中 $star$ 是更常见的那种卷积，$h_k (m) = omega_n^(-k m)$。（$f star h_bullet (m)$ 是周期函数，在 $0$ 处的值也等于在 $n$ 处的值。）
 ]
 
 #figure(
@@ -431,7 +431,7 @@ $
   caption: [
     $c_bullet (m)$ 与 $c_n (bullet)$
 
-    每一条图线的阴影水平线是横轴，横轴的绝对高度没有意义。
+    每一条图线的阴影水平线是横轴，图线的绝对高度没有意义。
 
     $c_bullet (m): ZZ^+ -> ZZ$，画图时用线段连接离散点；$c_n (bullet): RR -> CC$，分实虚绘制，有阴影的为实部。
   ],
@@ -446,12 +446,14 @@ $
 
 结合刚刚得到的
 $
-m |-> fourier(f)(m,n) = (f * c_bullet (m))(n)
+fourier(f)(m,n) = (f * c_bullet (m))(n)
 $
-与Fourier反变换
+与Fourier正反变换
 $
-k |-> f(gcd(k,n)) = 1/n sum_(m=1)^n fourier(f)(m,n) times omega_n^(k m).
+m |-> fourier(f)(m,n) &:= sum_(k=1)^n f(gcd(k,n)) times omega_n^(-k m), \
+k |-> f(gcd(k,n)) &= 1/n sum_(m=1)^n fourier(f)(m,n) times omega_n^(k m)
 $
+能得到许多结果。
 
 #example[用新方法表示 $gcd$][
   取 $f = id$，则
@@ -489,9 +491,9 @@ $
 ]
 
 #example[乘法][
-  以Fourier正变换，取 $m=0$ 为例，$sum_k f(gcd(k,n)) =: fourier(f)(0,n) = (log * phi)(n)$。
+  以Fourier正变换，取 $m=0$ 为例，$sum_k f(gcd(k,n)) =: fourier(f)(0,n) = (f * phi)(n)$。
 
-  取 $f = log compose g$，得 LHS 的 $exp$ 为
+  取 $f = log compose g$，则 LHS 的 $exp$ 为
   $
   exp sum_k log g(gcd(k,n))
   = product_k g(gcd(k,n)),
@@ -505,7 +507,7 @@ $
 ]
 
 #example[$CC$ 的大门][
-  数论常常限制在 $ZZ^+$ 中，而Fourier变换式字面上在 $CC$ 中，于是我们的公式可让一些 $ZZ^+$ 的概念拓展到 $CC$。
+  数论常常限制在 $ZZ^+$ 中，而Fourier变换字面上在 $CC$ 中，于是我们的公式可让一些 $ZZ^+$ 的概念拓展到 $CC$。
 
   举个例子，将互质概念从 $ZZ^+ times ZZ^+$ 拓展到 $CC times ZZ^+$。$k perp n
   <=> delta(gcd(k,n)) != 0$，注意按我们的公式 $fourier(delta)(m,bullet) = delta * c_bullet (m) = c_bullet (m)$。于是按Fourier反变换，
@@ -515,6 +517,8 @@ $
   $
   它等于零即向量 $c_n (bullet)$ 与 $m |-> omega_n^(k m)$ 正交，后者对一般 $k in CC$ 也有意义。
 ]
+
+其实Wolfgang Schramm 2008年文章足足有13个例子，并总结成了关于 $f, m$ 的二维表格。然而这里只引入了 $1,id,delta$ 和 $c$ 四个数论函数，一描述就捉襟见肘，还请有志者参考原文吧。
 
 #set heading(numbering: none)
 = 他典等
