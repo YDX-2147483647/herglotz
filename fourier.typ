@@ -2,6 +2,15 @@
 
 #import "template.typ": project, example, remark
 
+// Workaround for footnote style
+#show link: set text(fill: blue)
+#show link: underline
+// Footnote style must be uniform for the whole flow of content.
+// Therefore, set and show rules for `footnote.entry` must be defined at the beginning.
+// (at least for typst v0.10.0)
+// https://github.com/typst/typst/issues/1348#issuecomment-1566316463
+// https://typst.app/docs/reference/model/footnote/#example
+
 #show: project.with(title: "最大公约数的Fourier变换", date: "2023年10月20、26日，11月20日，12月2、13–16日")
 
 #let fourier(symbol) = math.attach(math.cal("F"), br: h(-0.5em) + symbol)
