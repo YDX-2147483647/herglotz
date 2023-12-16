@@ -33,11 +33,13 @@
   // Save heading and body font families in variables.
   let body-fonts = ("Linux Libertine", "Source Han Serif")
   let sans-fonts = ("Inria Sans", "Source Han Sans")
+  let script-fonts = ("Inria Sans", "STKai")
 
   // Set body font family.
   set text(font: body-fonts, lang: "zh")
   show heading: set text(font: sans-fonts)
   show raw: set text(font: ("Fira Code", ..sans-fonts))
+  show figure.caption: set text(font: script-fonts)
   set heading(numbering: "1.1", supplement: [§])
 
   // Make the empty set round
