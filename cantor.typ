@@ -2,7 +2,7 @@
 
 #import "template.typ": project, remark, pseudonyms, example
 
-#show: project.with(title: "既连续又本质间断", date: "2023年10月23–24日，11月7、13–14、16–20日")
+#show: project.with(title: "既连续又本质间断", date: "2023年10月23–24日，11月7、13–14、16–20日，12月16日")
 
 #quote(
   block: true,
@@ -46,7 +46,7 @@ $RR -> RR$ 函数中，存在完全连续的，存在某一点不连续的，存
   )
   $
   在整个 $RR$ 上处处不连续。#footnote[
-    若把定义域限制到 $QQ$，仍然可以定义极限，这时 Dirichlet 恒取 $1$，连续。——要区分“在□□内连续”和“在□□上处处连续”，我们后面都指后者。
+    若把定义域限制到 $QQ$，仍然可以定义极限，这时 Dirichlet 函数恒取 $1$，连续。——要区分“在□□内连续”和“在□□上处处连续”，我们后面都指后者。
   ]
 
 - *Thomae爆米花函数*（又名Riemann函数、Stars over Babylon）
@@ -309,7 +309,7 @@ $X$ 内有一点 $x$，考查 $x$ 的邻域 $U$ 和去心邻域 $U^0 := U withou
     [稠密 dense #h(1fr)——闭包取满#footnote[稠密必须谈背景，这里默认在 $RR$ 中。]], [无内点 has empty interior],
     [内点稠密 has dense interior], [无处稠密 nowhere dense #h(1fr)——闭包也无内点],
     [$G_delta$ #h(1fr)——开集的可数交], [$F_sigma$ #h(1fr)——闭集的可数并],
-    [comeagre#footnote[我尝试了多种翻译服务，只有必应有时能输出汉字：科马格雷。]], [疏朗 meagre#footnote[又叫first category，意思是按meagre与否将集合分为两类。不过取“第一”“第二”这种名字，还不如随机地叫“元伶外夜承”“承夜外伶元”，那样既强调仅有两类，又没有歧义。另外，这个category常译作“纲”（→界门纲目科属种），但容易误以为提纲、纲领，所以我们也不采用。] #h(1fr)——无处稠密集的可数并],
+    [comeagre#footnote[我尝试了多种翻译服务，大多原样返回，仅DeepL和必应有时会翻译：前者给出`""`或“蔚为大观”，后者给出“科马格雷”。]], [疏朗 meagre#footnote[又叫first category，意思是按meagre与否将集合分为两类。不过取“第一”“第二”这种名字，还不如随机地叫“元伶外夜承”“承夜外伶元”，那样既强调仅有两类，又没有歧义。另外，这个category常译作“纲”（→界门纲目科属种），但容易误以为提纲、纲领，所以我们也不采用。] #h(1fr)——无处稠密集的可数并],
   ),
   kind: table,
   caption: [Baire空间涉及的若干性质]
@@ -349,7 +349,7 @@ $X$ 内有一点 $x$，考查 $x$ 的邻域 $U$ 和去心邻域 $U^0 := U withou
 
     $RR$ 不可数、稠密，它可能meagre吗？
 
-  以上两点在Baire空间中都不可能。下面就将介绍这种空间。
+  以上两点在Baire空间中都不可能。后面就将介绍这种空间。
 ]
 
 #remark[$F_sigma$ 与meagre][
@@ -366,9 +366,9 @@ $X$ 内有一点 $x$，考查 $x$ 的邻域 $U$ 和去心邻域 $U^0 := U withou
 
   1. *任何函数的间断点集合都 $F_sigma$。*
 
-    1. 函数 $f$ 在 $x$ 的*振荡*（oscillation） $omega_f (x) := inf_(delta > 0) diam f(U_delta (x))$#footnote[这也是 $lim_(delta->0)$。（单调递减，非负，必存在极限）]，其中 $diam$ 表示集合的直径。
+    1. 函数 $f$ 在 $x$ 的*振荡*（oscillation） $omega_f (x) := inf_(delta > 0) diam f(U_delta (x))$#footnote[这也是 $lim_(delta->0)$。（单调递减，非负，必存在极限）]，其中 $diam$ 表示集合的直径（其中点间的最大距离）。
     2. $f$ 在 $x$ 连续的定义是 $forall epsilon > 0, exists delta > 0, space f(U^0_delta (x)) subset U_epsilon (f(x))$，必要条件是 $diam f(U_delta (x)) < 2epsilon$，充分条件是 $diam f(U_delta (x)) < epsilon/2$，于是可知 $f$ 在 $x$ *连续等价于 $omega_f (x) = 0$*。
-    3. $forall x in U_delta (x_0), space U_(2 delta) (x_0) supset U_delta (x)$，于是若 $omega(x_0) < Omega$，则 $forall x in U_delta (x_0), omega(x) < Omega$。换句话说，${x: omega(x) < Omega}$ 总是开集，故 *${x: omega(x) >= Omega}$ 总是闭集*。
+    3. $forall x in U_delta (x_0), space U_(2 delta) (x_0) supset U_delta (x)$，于是若 $omega(x_0) < Omega$，则 $exists delta > 0, diam f(U_(2delta) (x_0)) < Omega$，故 $forall x in U_delta (x_0), omega(x) < Omega$。换句话说，${x: omega(x) < Omega}$ 总是开集，故 *${x: omega(x) >= Omega}$ 总是闭集*。
     4. $f$ 的*间断点集合*是 ${x: omega(x) > 0}$，它也可写成
       $
       union.big_(n in NN) {x: omega(x) >= 1/n}
@@ -482,7 +482,7 @@ Baire category theorem指出 $RR$ 是Baire空间，我们从“稠密开集的�
 
   - 闭：迭代构造时，每一阶段都是闭集，$cal(C)$ 是这些闭集的交集，也闭。
   - 无内点：迭代 $n$ 次后，不再存在长于 $1/3^n$ 的区间。
-  - 无孤立点：迭代 $n$ 次时，可确定此时每段闭区间的端点属于 $cal(C)$，并且它们到此时整个集合任意点的最大距离是 $1/(2 times 3^n)$。
+  - 无孤立点：迭代 $n$ 次时，可确定此时每段闭区间的端点属于 $cal(C)$，并且这些点与此时整个集合任意点的最大距离是 $1/(2 times 3^n)$。
   综合以上各点，$cal(C)$ 是无处稠密的perfect集。
 ]
 

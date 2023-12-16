@@ -1,8 +1,9 @@
 #import "@preview/physica:0.8.0": dd, dv, Re, Im, Res as _Res, order, eval, difference
+#import "@preview/xarrow:0.2.0": xarrow
 
 #import "template.typ": project, remark, example, small, pseudonyms
 
-#show: project.with(title: "Herglotz Trick", date: "2023年10月9–10、11、26–28日")
+#show: project.with(title: "Herglotz Trick", date: "2023年10月9–10、11、26–28日，12月16日")
 
 #let Res = math.limits(_Res)
 #let comb = math.op("Ш")
@@ -105,7 +106,7 @@ $
 dv(f, x)
 = sum_(n in ZZ) dv(,x) 1/(x+n)
 = - sum_(n in ZZ) 1/(x+n)^2
-<= 0.
+< 0.
 $
 —— $f$ 在每一定义区间内*单调递减*。
 
@@ -140,7 +141,7 @@ $
 1. 根据性状，$f$ 接近 $cot$。
 
   #remark[词源][
-    正切 $tan$ 的 tangent 来自拉丁语 _tangens_ (≈ “touching” in English)，因为它是切线段长，而切线 _touches_ 单位圆。
+    正切 $tan$ 的 tangent 来自拉丁语 _tangens_ (≈ 英语的“touching”)，因为它是切线段长，而切线 _touches_ 单位圆。
 
     余切 $cot$ 等的前缀 co- 来自 _complementi_ (≈ “complementary”)，指余角（complementary angle）。
   ]
@@ -152,7 +153,7 @@ $
 4. $f$ 和 $cot$ 满足相同的*递归*性质，或者说二倍角公式。
 
   #remark[要多想][
-    如果你在 @sec:intro 动手处理过 $sum 1/(n+1/2)$，可能已发现类似性质。
+    如果你在 @sec:intro 动手处理过 $sum_n 1/(n+1/2)$，可能已发现类似性质。
   ]
 
   $2f(2x) = f(x) + f(x+1/2)$：
@@ -263,10 +264,10 @@ $
 众所周知，
 $
 sum_(k=0)^(N-1) cos(theta + (2pi k)/N)
-&= Re sum_(k=0)^(N-1) e^(i theta) e^(i (2pi k)/N) \
-&= Re e^(i theta) sum_(k=0)^(N-1) omega^k \
-&= Re e^(i theta) (1 - omega^N) / (1 - omega) \
-&= 0, \
+&= Re sum_(k=0)^(N-1) e^(i theta) e^(i (2pi k)/N)
+&= Re e^(i theta) sum_(k=0)^(N-1) omega^k
+&= Re e^(i theta) (1 - omega^N) / (1 - omega)
+&= 0,
 $
 其中 $N$ 次单位根 $omega = e^(i (2pi)/N)$，$omega^N = 1$。
 
@@ -355,7 +356,7 @@ $
 第一项有界，第二项类似 Riemann 和。$x=0$ 时，第二项的模等于
 $
 sum_(n in ZZ^+) 2/(1 + (n/y)^2) 1/y
-attach(-->, t: y->+oo) integral_(RR^+) (2 dd(u))/(1+u^2)
+xarrow(sym: -->, y->+oo) integral_(RR^+) (2 dd(u))/(1+u^2)
 = eval(2 arctan u)_0^(+oo)
 = pi.
 $
@@ -448,7 +449,7 @@ $
   &= -pi^2/2 Res_(z=0) (cot z)/z^2.
   $
 
-  另外，从 $f = 1/z + 2z sum 1/(z^2-n^2)$ 也能看出 $-2S$ 等于 $f$ 的 Laurent 展式中 $z$ 项的系数。
+  另外，从 $f = 1/z + 2z sum 1/(z^2-n^2)$ 也能看出 $-2S$ 等于 $f$ 在 $0 < abs(z) < 1$ 的 Laurent 展式中 $z$ 项的系数。
 
   现在计算留数。
   $
