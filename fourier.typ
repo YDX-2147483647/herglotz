@@ -11,7 +11,7 @@
 // https://github.com/typst/typst/issues/1348#issuecomment-1566316463
 // https://typst.app/docs/reference/model/footnote/#example
 
-#show: project.with(title: "最大公约数的Fourier变换", date: "2023年10月20、26日，11月20日，12月2、13–16日")
+#show: project.with(title: "最大公约数的Fourier变换", date: "2023年10月20、26日，11月20日，12月2、13–16、19日")
 
 #let fourier(symbol) = math.attach(math.cal("F"), br: h(-0.5em) + symbol)
 #let bullet = math.circle.filled.small
@@ -229,17 +229,21 @@ $
 #remark[时间线][
   我们将发现 $c_bullet (1)$ 是 Möbius $mu$ 函数。
 
-  - Ramanujan（1887–1920）在1918年提出Ramanujan和。
+  - 1918年，Ramanujan（1887–1920）提出Ramanujan和。
 
-  - Mertens（1840–1927）在1874年为 Möbius 函数引入了记号 $mu(n)$。
+  - 1874年，Mertens（1840–1927）为 Möbius 函数引入了记号 $mu(n)$。
 
     以他自己名字命名的Mertens函数是 $sum mu(n)$，它在 $n -> +oo$ 的渐近性质与Riemann猜想有关。
 
-  - Riemann（1826–1866）1859年的9页文章 _Ueber die Anzahl der Primzahlen unter einer gegebenen Grösse_（关于小于给定数的质数数量）开创了解析数论。
+  - 1859年，Riemann（1826–1866）的9页文章 _Ueber die Anzahl der Primzahlen unter einer gegebenen Grösse_（关于小于给定数的质数数量）开创了解析数论。
 
-  - Möbius（1790–1868）在1832年提出Möbius函数。
+  - 1837年，Dirichlet（1805–1859）宣读的论文提出了Dirichlet级数，文中记作 $L$。#footnote[
+      _Beweis des Satzes, dass jede unbegrenzte arithmetische Progression, deren erstes Glied und Differenz ganze Zahlen ohne gemeinschaftlichen Factor sind, unendlich viele Primzahlen enthält_ 这篇文章证明了首项、公差互质的等比数列中有无穷多质数（如题目所言），还明确区分了条件收敛、绝对收敛。#link("https://arxiv.org/abs/0808.1408")[arXiv:0808.1408] 有英语翻译。
+    ]
 
-  - Gauß（1777–1855）在1801年事实上讨论了Möbius函数，他给出 $sum_(k perp a) omega_a^k in {0, plus.minus 1}$ 以及每一种情况的充要条件。#footnote[
+  - 1832年，Möbius（1790–1868）提出Möbius函数。
+
+  - 1801年，Gauß（1777–1855）事实上讨论了Möbius函数，他给出 $sum_(k perp a) omega_a^k in {0, plus.minus 1}$ 以及每一种情况的充要条件。#footnote[
       Gauß、Möbius、Mertens三个年份的来源是 #link("https://mathworld.wolfram.com/MoebiusFunction.html")[Möbius Function - Wolfram MathWorld]。
     ]
 
@@ -543,3 +547,4 @@ $
 - #link("https://proofwiki.org/wiki/Sum_of_M%C3%B6bius_Function_over_Divisors")[Sum of Möbius Function over Divisors - Pr∞fWiki]
 - #link("https://en.wikipedia.org/wiki/Dirichlet_convolution")[Dirichlet convolution - Wikipedia]
 - Mathologer #link("https://youtu.be/LFwSIdLSosI")[Euler’s Pi Prime Product and Riemann’s Zeta Function - YouTube]
+- 孟祥蕊、王淑红《#link("https://mp.weixin.qq.com/s/-F8kFvqiSxvw_D7AvmVTXg")[狄利克雷——科研教学两不误的数学家]》，科学杂志1915（`kexuemag`）；返朴（`fanpu2019`）重排版并改名“#link("https://mp.weixin.qq.com/s/IxO5S_m_UFd8x5NvrLJIWQ")[黎曼认为他是高斯之外最伟大的数学家，现代函数概念出自他之手]”
