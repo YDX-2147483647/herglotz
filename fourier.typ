@@ -238,7 +238,7 @@ $
   - 1859年，Riemann（1826–1866）的9页文章 _Ueber die Anzahl der Primzahlen unter einer gegebenen Grösse_（关于小于给定数的质数数量）开创了解析数论。
 
   - 1837年，Dirichlet（1805–1859）宣读的论文提出了Dirichlet级数，文中记作 $L$。#footnote[
-      _Beweis des Satzes, dass jede unbegrenzte arithmetische Progression, deren erstes Glied und Differenz ganze Zahlen ohne gemeinschaftlichen Factor sind, unendlich viele Primzahlen enthält_ 这篇文章证明了首项、公差互质的等比数列中有无穷多质数（如题目所言），还明确区分了条件收敛、绝对收敛。#link("https://arxiv.org/abs/0808.1408")[arXiv:0808.1408] 有英语翻译。
+      _Beweis des Satzes, dass jede unbegrenzte arithmetische Progression, deren erstes Glied und Differenz ganze Zahlen ohne gemeinschaftlichen Factor sind, unendlich viele Primzahlen enthält_ 这篇文章证明了首项、公差互质的等差数列中有无穷多质数（如题目所言），还明确区分了条件收敛、绝对收敛。#link("https://arxiv.org/abs/0808.1408")[arXiv:0808.1408] 有英语翻译。
     ]
 
   - 1832年，Möbius（1790–1868）提出Möbius函数。
@@ -308,7 +308,7 @@ $
   3. 第三个等号是用质因数重组。
 ]
 
-现在把 $1/zeta(s)$ 写成Dirichlet乘积。
+现在把 $1/zeta(s)$ 写成Dirichlet级数。
 $
 1/zeta(s)
 &= product_p (1 - 1/p^s) \
