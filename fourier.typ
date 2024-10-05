@@ -1,6 +1,4 @@
-#import "@preview/tablex:0.0.6": tablex, hlinex, vlinex, cellx
-
-#import "template.typ": project, example, remark
+#import "template.typ": project, example, remark, table-header
 
 // Workaround for footnote style
 #show link: set text(fill: blue)
@@ -31,13 +29,12 @@ $
   以 $k |-> gcd(k, 4)$ 为例。
   #align(
     center,
-    tablex(
+    table(
       columns: (auto, auto, auto, auto, auto, auto, auto, auto, auto, auto, auto, auto),
       align: center,
-      auto-hlines: false,
-      auto-vlines: false,
-      [*$k$*], vlinex(), $dots.c$, $[1$, $2$, $3$, $4]$, $[5$, $6$, $7$, $8]$, $9$, $dots.c$,
-      hlinex(),
+      stroke: none,
+      [*$k$*], table.vline(), $dots.c$, $[1$, $2$, $3$, $4]$, $[5$, $6$, $7$, $8]$, $9$, $dots.c$,
+      table.hline(),
       [*$gcd(k, 4)$*], $dots.c$, $[1$, $2$, $1$, $4]$, $[1$, $2$, $1$, $4]$, $1$, $dots.c$,
     )
   )
@@ -74,21 +71,17 @@ $
 @tab:units 介绍了最基础的三个数论函数 $1, id, delta$。
 
 #figure(
-  tablex(
-    columns: (auto, auto, auto),
-    align: center,
-    auto-vlines: false,
-    auto-hlines: false,
-    [*记号*], vlinex(), [*定义*], vlinex(), [*意义*],
-    hlinex(),
+  table(
+    columns: 3,
+    align: (x, y) => (if y == 0 or x < 2 { center } else { start }) + horizon,
+    table-header[记号][定义][意义],
     $1$, $1(n) equiv 1$,
-    cellx(align: start)[恒一，函数相乘的单位元：$f times 1 = 1 times f = f$],
+    [恒一，函数相乘的单位元：$f times 1 = 1 times f = f$],
     $id$, $id(n) equiv n$,
-    cellx(align: start)[恒等，函数复合的单位元：$f compose id = id compose f = f$],
+    [恒等，函数复合的单位元：$f compose id = id compose f = f$],
     $delta$, $delta(n) = cases(1 &space n = 1, 0 &space n != 1)$,
-    cellx(align: start)[Dirac $delta$#footnote[有些文献写作 $n |-> delta_(n 1)$，这次 $delta$ 是 Kronecker $delta$。]，Dirichlet卷积的单位元：$f * delta = delta * f = f$],
+    [Dirac $delta$#footnote[有些文献写作 $n |-> delta_(n 1)$，这次 $delta$ 是 Kronecker $delta$。]，Dirichlet卷积的单位元：$f * delta = delta * f = f$],
   ),
-  kind: table,
   caption: [三种“单位”数论函数]
 ) <tab:units>
 

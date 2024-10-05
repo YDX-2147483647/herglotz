@@ -1,5 +1,4 @@
 #import "@preview/ctheorems:1.0.0": thmrules, thmbox
-#import "@preview/tablex:0.0.6": tablex, hlinex, vlinex
 
 #let remark = thmbox(
   "remark",
@@ -24,6 +23,15 @@
 ).with(numbering: none)
 
 #let small = text.with(size: 0.8em, fill: gray.darken(70%))
+
+// A stylized table header
+// TODO: Use a show rule on `table.header`.
+// It is not possible at least in typst v0.11. “That will be fixed in a future release.”
+// https://typst.app/docs/guides/table-guide/#basic-tables
+// https://github.com/typst/typst/issues/3640
+#let table-header(..headers) = {
+  table.header(..headers.pos().map(strong))
+}
 
 #let project(title: "", authors: (), date: none, body) = {
   // Set the document's basic properties.
@@ -63,6 +71,14 @@
   // Main body.
   set par(justify: true)
 
+  set table(
+    align: (x, y) => (if y == 0 { center } else { start }) + horizon,
+    stroke: (x, y) => (
+      if y == 0 { (bottom: 1pt + black) },
+      if x > 0 { (left: 1pt + black) },
+    ).sum(),
+  )
+
   show: thmrules
 
   show strong: set text(fill: blue.darken(10%))
@@ -92,17 +108,11 @@
   [#hashes.slice(1).map(row => row.at(0)).join("、")当然是化名，他们的真名按 UTF-8 编码的 SHA256
     如下。]
 
-  figure(tablex(
-    columns: (auto, auto),
-    align: center + horizon,
-    auto-vlines: false,
-    auto-hlines: false,
-    [*#hashes.at(0).at(0)*],
-    vlinex(),
-    [*#hashes.at(0).at(1)*],
-    hlinex(),
+  figure(table(
+    columns: 2,
+    table-header(..hashes.at(0)),
     ..hashes.slice(1).map(row => (row.at(0), raw(row.at(1)))).flatten(),
-  ), caption: [化名与真名的 hash], kind: table)
+  ), caption: [化名与真名的 hash])
 
   figure(
     raw(read(path + "/hash.py"), lang: "python", block: true),
