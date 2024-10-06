@@ -260,7 +260,7 @@ $
 其中 $p$ 取遍质数。
 
 #remark[证明Euler积公式][
-  这个证明重写了一遍Ἐρατοσθένης #footnote[Ἐρατοσθένης (Eratosthenes) 这个名字的词源是 _ἐρᾰτός_ (eratós, “lovely”) + _σθένος_ (sthénos, “strong”)。] 质数筛，改写自Euler原文。
+  这个证明重写了一遍Ἐρατοσθένης #footnote[Ἐρατοσθένης (Eratosthenes) 这个名字的词源是 _ἐρᾰτός_ (eratós, #text(lang: "en")[“lovely”]) + _σθένος_ (sthénos, #text(lang: "en")[“strong”])。] 质数筛，改写自Euler原文。
 
   对比
   $

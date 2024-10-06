@@ -141,9 +141,9 @@ $
 1. 根据性状，$f$ 接近 $cot$。
 
   #remark[词源][
-    正切 $tan$ 的 tangent 来自拉丁语 _tangens_ (≈ 英语的“touching”)，因为它是切线段长，而切线 _touches_ 单位圆。
+    正切 $tan$ 的 tangent 来自拉丁语 _tangens_ (≈ 英语的#text(lang: "en")[“touching”])，因为它是切线段长，而切线 _touches_ 单位圆。
 
-    余切 $cot$ 等的前缀 co- 来自 _complementi_ (≈ “complementary”)，指余角（complementary angle）。
+    余切 $cot$ 等的前缀 co- 来自 _complementi_ (≈ #text(lang: "en")[“complementary”])，指余角（complementary angle）。
   ]
 
 2. 根据周期 $1$，$f$ 可能是 $cot(pi x)$ 的倍数。
