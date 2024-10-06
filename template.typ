@@ -34,14 +34,6 @@
   table.header(..headers.pos().map(strong))
 }
 
-// 中西共用标点默认全宽，破折号应不离不弃
-// TODO: 这样无法区分正文和`figure.caption`，引号高度可能不匹配汉字。
-// https://github.com/typst/typst/issues/3331
-#let _fix-zh-punctuations(font: "Source Han Serif", body) = {
-  show regex("[“‘’”]|——|……"): set text(font: font)
-  body
-}
-
 #let project(title: "", authors: (), date: none, body) = {
   // Set the document's basic properties.
   set document(author: authors, title: title)
@@ -54,7 +46,13 @@
 
   // Set body font family.
   set text(font: body-fonts, lang: "zh", region: "CN")
-  show text.where(lang: "zh"): _fix-zh-punctuations.with(font: body-fonts.at(1))
+  // 中西共用标点默认全宽，破折号应不离不弃
+  // TODO: 这样无法区分正文和`figure.caption`，引号高度可能不匹配汉字。
+  // https://github.com/typst/typst/issues/3331
+  show regex("[“‘’”]|——|……"): it => {
+    set text(font: body-fonts.at(1)) if text.lang == "zh"
+    it
+  }
   show heading: set text(font: sans-fonts)
   show raw: set text(font: ("Fira Code", ..sans-fonts))
   show figure.caption: set text(font: script-fonts)
