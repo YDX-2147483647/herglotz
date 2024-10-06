@@ -1,25 +1,26 @@
-#import "@preview/ctheorems:1.0.0": thmrules, thmbox
+#import "@preview/ctheorems:1.1.2": thmrules, thmbox
+
+#let _thmbox_fmt = (
+  // 开头的负空白用于抵消 head、name 之间的空格。
+  namefmt: (name) => text(weight: "bold", [#h(-1em/4)（#name] + box(width: 1em)[）#h(-1em/4).]),
+  separator: h(0.5em),
+  breakable: true,
+)
 
 #let remark = thmbox(
   "remark",
   "注",
   titlefmt: text.with(fill: purple.darken(10%), weight: "bold"),
-  // -0.5em 用于抵消 head、name 之间的空格。
-  namefmt: (name) => text(weight: "bold")[#h(-0.5em)（#name）],
-  separator: text(weight: "bold")[.#h(0.5em)],
-  breakable: true,
   stroke: (left: purple),
+  .._thmbox_fmt,
 ).with(numbering: none)
 
 #let example = thmbox(
   "example",
   "例",
   titlefmt: text.with(fill: green.darken(10%), weight: "bold"),
-  // -0.5em 用于抵消 head、name 之间的空格。
-  namefmt: (name) => text(weight: "bold")[#h(-0.5em)（#name）],
-  separator: text(weight: "bold")[.#h(0.5em)],
-  breakable: true,
   stroke: (left: green),
+  .._thmbox_fmt,
 ).with(numbering: none)
 
 #let small = text.with(size: 0.8em, fill: gray.darken(70%))
