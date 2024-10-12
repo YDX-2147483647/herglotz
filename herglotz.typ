@@ -1,4 +1,4 @@
-#import "@preview/physica:0.8.0": dd, dv, Re, Im, Res as _Res, order, eval, difference
+#import "@preview/physica:0.9.3": dd, dv, Re, Im, Res as _Res, Order, eval, difference
 #import "@preview/xarrow:0.2.0": xarrow
 
 #import "template.typ": project, remark, example, small, pseudonyms
@@ -141,9 +141,9 @@ $
 1. 根据性状，$f$ 接近 $cot$。
 
   #remark[词源][
-    正切 $tan$ 的 tangent 来自拉丁语 _tangens_ (≈ 英语的“touching”)，因为它是切线段长，而切线 _touches_ 单位圆。
+    正切 $tan$ 的 tangent 来自拉丁语 _tangens_ (≈ 英语的#text(lang: "en")[“touching”])，因为它是切线段长，而切线 _touches_ 单位圆。
 
-    余切 $cot$ 等的前缀 co- 来自 _complementi_ (≈ “complementary”)，指余角（complementary angle）。
+    余切 $cot$ 等的前缀 co- 来自 _complementi_ (≈ #text(lang: "en")[“complementary”])，指余角（complementary angle）。
   ]
 
 2. 根据周期 $1$，$f$ 可能是 $cot(pi x)$ 的倍数。
@@ -204,7 +204,7 @@ $f$ 大约的确是 $x |-> pi cot(pi x)$ 了。
   - 在 $ZZ$ 上，$f$ 和 $cot$ 的 $oo$ 相互抵消，奇点可去。
 
     具体来说，$x -> 0$ 时，
-    - 前面判断 $f$ 收敛时已得 $f - 1\/x = order(x)$；
+    - 前面判断 $f$ 收敛时已得 $f - 1\/x = Order(x)$；
     - 又知 $cot x - 1\/x = (x - tan x)/(x tan x) tilde o(x^2) \/ x^2 = o(1)$。
     故 $g -> 0$。若补充定义 $g(0)=0$，$g$ 即连续。
 
@@ -371,7 +371,7 @@ $
 abs(f'(z))
 <= sum_(n in ZZ) 1 / abs(z+n)^2
 = 1/y sum_(n in ZZ) 1 / (1 + (x+n)^2/y^2) 1/y
-= 1/y order(pi/2)
+= 1/y Order(pi/2)
 -> 0.
 $
 由导数有界，$f(0+i oo)$ 有界，可得 $f([0,1] + i oo)$ 有界。至此得证。
@@ -422,9 +422,9 @@ $
     $
     (1/(z+zeta) - 1/z) pi cot(pi z)
     = -zeta/(z(z+zeta)) pi cot(pi z)
-    = order(1/R^2),
+    = Order(1/R^2),
     $
-    而边界长 $order(R)$，误差最多 $order(1/R)$。
+    而边界长 $Order(R)$，误差最多 $Order(1/R)$。
 ]
 
 #example[Basel 问题][
@@ -455,7 +455,7 @@ $
   $
   (cot z - 1\/z - 0)/z
   = (z - tan z)/(z^2 tan z)
-  tilde (-1/3 z^3 + order(z^5))/z^3
+  tilde (-1/3 z^3 + Order(z^5))/z^3
   -> -1/3.
   $
   因此

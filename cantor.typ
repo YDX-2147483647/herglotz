@@ -1,6 +1,4 @@
-#import "@preview/tablex:0.0.6": tablex, hlinex, vlinex
-
-#import "template.typ": project, remark, pseudonyms, example
+#import "template.typ": project, remark, pseudonyms, example, table-header
 
 #show: project.with(title: "既连续又本质间断", date: "2023年10月23–24日，11月7、13–14、16–20日，12月16日，2024年1月3日")
 
@@ -299,19 +297,15 @@ $X$ 内有一点 $x$，考查 $x$ 的邻域 $U$ 和去心邻域 $U^0 := U withou
 例如，若一个集合等于其导集，则称它*perfect*，这等价于它是无孤立点的闭集。更多定义如@tab:def-pairs。
 
 #figure(
-  tablex(
-    columns: (auto, auto),
-    auto-vlines: false,
-    auto-hlines: false,
-    [*原集合的性质*], vlinex(), [*补集相应性质*],
-    hlinex(),
+  table(
+    columns: 2,
+    table-header[原集合的性质][补集相应性质],
     [开 open #h(1fr)——边界全无], [闭 closed #h(1fr)——边界全管],
     [稠密 dense #h(1fr)——闭包取满#footnote[稠密必须谈背景，这里默认在 $RR$ 中。]], [无内点 has empty interior],
     [内点稠密 has dense interior], [无处稠密 nowhere dense #h(1fr)——闭包也无内点],
     [$G_delta$ #h(1fr)——开集的可数交], [$F_sigma$ #h(1fr)——闭集的可数并],
     [comeagre#footnote[我尝试了多种翻译服务，大多原样返回，仅DeepL和必应有时会翻译：前者给出`""`（一对引号）或“蔚为大观”，后者给出“科马格雷”。]], [疏朗 meagre#footnote[又叫first category，意思是按meagre与否将集合分为两类。不过取“第一”“第二”这种名字，还不如随机地叫“元伶外夜承”“承夜外伶元”，那样既强调仅有两类，又不会与其它术语混淆。另外，这个category常译作“纲”（→界门纲目科属种），但容易误以为提纲、纲领，所以我们也不采用。] #h(1fr)——无处稠密集的可数并],
   ),
-  kind: table,
   caption: [Baire空间涉及的若干性质]
 ) <tab:def-pairs>
 
@@ -322,20 +316,18 @@ $X$ 内有一点 $x$，考查 $x$ 的邻域 $U$ 和去心邻域 $U^0 := U withou
 #example[$QQ$ 的性质][在 $RR$ 中，$QQ$ 有如下性质。
   #show "❌": text.with(fill: red)
   #show "✅": text.with(fill: green)
+  #show regex("[❌✅]"): set text(font: "Segoe UI Emoji")
+
   #figure(
-    tablex(
-      columns: (auto, auto),
-      auto-vlines: false,
-      auto-hlines: false,
-      [*一种性质*], vlinex(), [*另一种性质*],
-      hlinex(),
+    table(
+      columns: 2,
+      table-header[一种性质][另一种性质],
       [❌开], [❌闭],
       [✅稠密], [✅无内点],
       [❌内点稠密], [❌无处稠密],
       [❌$G_delta$], [✅$F_sigma$],
       [❌comeagre], [✅meagre],
     ),
-    kind: table,
     caption: [$QQ$ 在 $RR$ 中的性质]
   )
 

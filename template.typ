@@ -1,29 +1,38 @@
-#import "@preview/ctheorems:1.0.0": thmrules, thmbox
-#import "@preview/tablex:0.0.6": tablex, hlinex, vlinex
+#import "@preview/ctheorems:1.1.2": thmrules, thmbox
+
+#let _thmbox_fmt = (
+  // 开头的负空白用于抵消 head、name 之间的空格。
+  namefmt: (name) => text(weight: "bold", [#h(-1em/4)（#name] + box(width: 1em)[）#h(-1em/4).]),
+  separator: h(0.5em),
+  breakable: true,
+)
 
 #let remark = thmbox(
   "remark",
   "注",
   titlefmt: text.with(fill: purple.darken(10%), weight: "bold"),
-  // -0.5em 用于抵消 head、name 之间的空格。
-  namefmt: (name) => text(weight: "bold")[#h(-0.5em)（#name）],
-  separator: text(weight: "bold")[.#h(0.5em)],
-  breakable: true,
   stroke: (left: purple),
+  .._thmbox_fmt,
 ).with(numbering: none)
 
 #let example = thmbox(
   "example",
   "例",
   titlefmt: text.with(fill: green.darken(10%), weight: "bold"),
-  // -0.5em 用于抵消 head、name 之间的空格。
-  namefmt: (name) => text(weight: "bold")[#h(-0.5em)（#name）],
-  separator: text(weight: "bold")[.#h(0.5em)],
-  breakable: true,
   stroke: (left: green),
+  .._thmbox_fmt,
 ).with(numbering: none)
 
 #let small = text.with(size: 0.8em, fill: gray.darken(70%))
+
+// A stylized table header
+// TODO: Use a show rule on `table.header`.
+// It is not possible at least in typst v0.11. “That will be fixed in a future release.”
+// https://typst.app/docs/guides/table-guide/#basic-tables
+// https://github.com/typst/typst/issues/3640
+#let table-header(..headers) = {
+  table.header(..headers.pos().map(strong))
+}
 
 #let project(title: "", authors: (), date: none, body) = {
   // Set the document's basic properties.
@@ -36,7 +45,14 @@
   let script-fonts = ("Inria Sans", "STKai")
 
   // Set body font family.
-  set text(font: body-fonts, lang: "zh")
+  set text(font: body-fonts, lang: "zh", region: "CN")
+  // 中西共用标点默认全宽，破折号应不离不弃
+  // TODO: 这样无法区分正文和`figure.caption`，引号高度可能不匹配汉字。
+  // https://github.com/typst/typst/issues/3331
+  show regex("[“‘’”]|——|……"): it => {
+    set text(font: body-fonts.at(1)) if text.lang == "zh"
+    it
+  }
   show heading: set text(font: sans-fonts)
   show raw: set text(font: ("Fira Code", ..sans-fonts))
   show figure.caption: set text(font: script-fonts)
@@ -62,6 +78,14 @@
 
   // Main body.
   set par(justify: true)
+
+  set table(
+    align: (x, y) => (if y == 0 { center } else { start }) + horizon,
+    stroke: (x, y) => (
+      if y == 0 { (bottom: 1pt + black) },
+      if x > 0 { (left: 1pt + black) },
+    ).sum(),
+  )
 
   show: thmrules
 
@@ -92,17 +116,11 @@
   [#hashes.slice(1).map(row => row.at(0)).join("、")当然是化名，他们的真名按 UTF-8 编码的 SHA256
     如下。]
 
-  figure(tablex(
-    columns: (auto, auto),
-    align: center + horizon,
-    auto-vlines: false,
-    auto-hlines: false,
-    [*#hashes.at(0).at(0)*],
-    vlinex(),
-    [*#hashes.at(0).at(1)*],
-    hlinex(),
+  figure(table(
+    columns: 2,
+    table-header(..hashes.at(0)),
     ..hashes.slice(1).map(row => (row.at(0), raw(row.at(1)))).flatten(),
-  ), caption: [化名与真名的 hash], kind: table)
+  ), caption: [化名与真名的 hash])
 
   figure(
     raw(read(path + "/hash.py"), lang: "python", block: true),
