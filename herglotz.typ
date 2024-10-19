@@ -1,5 +1,4 @@
 #import "@preview/physica:0.9.3": dd, dv, Re, Im, Res as _Res, Order, eval, difference
-#import "@preview/xarrow:0.2.0": xarrow
 
 #import "template.typ": project, remark, example, small, pseudonyms
 
@@ -356,7 +355,7 @@ $
 第一项有界，第二项类似 Riemann 和。$x=0$ 时，第二项的模等于
 $
 sum_(n in ZZ^+) 2/(1 + (n/y)^2) 1/y
-xarrow(sym: -->, y->+oo) integral_(RR^+) (2 dd(u))/(1+u^2)
+stretch(->)^(y->+oo) integral_(RR^+) (2 dd(u))/(1+u^2)
 = eval(2 arctan u)_0^(+oo)
 = pi.
 $
