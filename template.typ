@@ -40,9 +40,9 @@
   set page(numbering: "1", number-align: center)
 
   // Save heading and body font families in variables.
-  let body-fonts = ("Linux Libertine", "Source Han Serif")
-  let sans-fonts = ("Inria Sans", "Source Han Sans")
-  let script-fonts = ("Inria Sans", "STKai")
+  let body-fonts = ("Libertinus Serif", "Source Han Serif")
+  let sans-fonts = ("Libertinus Sans", "Source Han Sans")
+  let script-fonts = ("Libertinus Sans", "STKaiti")
 
   // Set body font family.
   set text(font: body-fonts, lang: "zh", region: "CN")
