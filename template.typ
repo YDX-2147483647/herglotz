@@ -88,6 +88,7 @@
   )
 
   show: thmrules
+  show math.equation: set block(breakable: true)
 
   show strong: set text(fill: blue.darken(10%))
   show link: set text(fill: blue)
