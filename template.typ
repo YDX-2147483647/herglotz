@@ -1,4 +1,4 @@
-#import "@preview/ctheorems:1.1.2": thmrules, thmbox
+#import "@preview/ctheorems:1.1.3": thmrules, thmbox
 
 #let _thmbox_fmt = (
   // 开头的负空白用于抵消 head、name 之间的空格。
