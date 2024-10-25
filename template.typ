@@ -1,4 +1,4 @@
-#import "@preview/ctheorems:1.1.2": thmrules, thmbox
+#import "@preview/ctheorems:1.1.3": thmrules, thmbox
 
 #let _thmbox_fmt = (
   // 开头的负空白用于抵消 head、name 之间的空格。
@@ -40,9 +40,9 @@
   set page(numbering: "1", number-align: center)
 
   // Save heading and body font families in variables.
-  let body-fonts = ("Linux Libertine", "Source Han Serif")
-  let sans-fonts = ("Inria Sans", "Source Han Sans")
-  let script-fonts = ("Inria Sans", "STKai")
+  let body-fonts = ("Libertinus Serif", "Source Han Serif")
+  let sans-fonts = ("Libertinus Sans", "Source Han Sans")
+  let script-fonts = ("Libertinus Sans", "STKaiti")
 
   // Set body font family.
   set text(font: body-fonts, lang: "zh", region: "CN")
@@ -88,6 +88,7 @@
   )
 
   show: thmrules
+  show math.equation: set block(breakable: true)
 
   show strong: set text(fill: blue.darken(10%))
   show link: set text(fill: blue)
