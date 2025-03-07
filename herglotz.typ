@@ -1,4 +1,4 @@
-#import "@preview/physica:0.9.3": dd, dv, Re, Im, Res as _Res, Order, eval, difference
+#import "@preview/physica:0.9.5": dd, dv, Re, Im, Res as _Res, Order, evaluated as eval, difference
 
 #import "template.typ": project, remark, example, small, pseudonyms
 

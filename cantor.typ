@@ -119,7 +119,7 @@ $RR -> RR$ 函数中，存在完全连续的，存在某一点不连续的，存
 ]
 
 #remark[Thomae函数与最大公约数][
-  考虑最大公约数函数 $gcd: NN^2 -> NN$ 的三维图象，把定义域、值域缩放到 $([0,1] sect QQ)^2 -> [0,1] sect QQ$，然后取个坐标面（因为自相似，取哪个都一样），截出来的二维图象就是Thomae函数在 $[0,1]$ 上的图象。
+  考虑最大公约数函数 $gcd: NN^2 -> NN$ 的三维图象，把定义域、值域缩放到 $([0,1] inter QQ)^2 -> [0,1] inter QQ$，然后取个坐标面（因为自相似，取哪个都一样），截出来的二维图象就是Thomae函数在 $[0,1]$ 上的图象。
 
   具体来说，如果规定 $(x,y) in.not NN^2$ 时，$gcd(x,y) = 0$，那么
   $ x |-> limsup_(N -> +oo) gcd(N x, N) / N $
@@ -193,7 +193,7 @@ $RR -> RR$ 函数中，存在完全连续的，存在某一点不连续的，存
   $
   c(x) = cases(
     sum_n a_n/2^n &space.quad x = sum_n (2a_n)/3^n in cal(C),
-    sup c([0,x] sect cal(C)) &space.quad x in.not cal(C),
+    sup c([0,x] inter cal(C)) &space.quad x in.not cal(C),
   ).
   $
 ]
@@ -217,14 +217,14 @@ $X$ 内有一点 $x$，考查 $x$ 的邻域 $U$ 和去心邻域 $U^0 := U withou
       #set align(left + horizon)
       *聚点*（accumulation，导集，derived）
 
-      $U^0 sect S != emptyset$
+      $U^0 inter S != emptyset$
     ]
   )
 )
-- 附着点（*闭包*，closure）：$U sect S != emptyset$
+- 附着点（*闭包*，closure）：$U inter S != emptyset$
   - *内*点（内部，interior）：$U subset S$
-  - 边界点（*边界*，boundary）：$U sect S^complement != emptyset and U sect S != emptyset$
-    - $U^0 sect S != emptyset and U sect S^complement != emptyset$
+  - 边界点（*边界*，boundary）：$U inter S^complement != emptyset and U inter S != emptyset$
+    - $U^0 inter S != emptyset and U inter S^complement != emptyset$
     - *孤立*点（isolated）：$U^0 subset S^complement and x in S$
 - 外点（外部，exterior）：$U subset S^complement$
 
@@ -256,16 +256,16 @@ $X$ 内有一点 $x$，考查 $x$ 的邻域 $U$ 和去心邻域 $U^0 := U withou
   无论假设是否成立，以下命题都成立。
   - $X$ 可划分为闭包、外部。
   - 闭包可划分为“内部、边界”和“聚点、孤立点”。
-  - 一点既是边界点又是聚点。$<==> forall U, space U^0 sect S != emptyset and U sect S^complement != emptyset.$
+  - 一点既是边界点又是聚点。$<==> forall U, space U^0 inter S != emptyset and U inter S^complement != emptyset.$
 
   唯一可能错误的是下面这组等价命题。（照例省略 $forall$ 和 $exists$）
   - 内点 $=>$ 聚点。
-  - $U subset S => U^0 sect S != emptyset.$
-  - $U^0 subset S^complement => U sect S^complement != emptyset.$
-  - 孤立点 $=>$ 边界点。（$U^0 subset S^complement and x in S ==> U sect S^complement != emptyset and U sect S != emptyset.$）
-  中间两行互为逆否，它们也等价于 $U^0 sect S != emptyset or U sect S^complement != emptyset$。分类讨论可知它等价于 $U^0 != emptyset or x in.not S$：
-  - $x in.not S$ 时，$U sect S^complement supset {x} sect S^complement = {x} != emptyset$，原命题后半部分恒真。
-  - $x in S$ 时，整个命题化为 $U^0 sect S != emptyset or U^0 sect S^complement != emptyset$，即 $U^0 = U^0 sect (S union S^complement) != emptyset$。
+  - $U subset S => U^0 inter S != emptyset.$
+  - $U^0 subset S^complement => U inter S^complement != emptyset.$
+  - 孤立点 $=>$ 边界点。（$U^0 subset S^complement and x in S ==> U inter S^complement != emptyset and U inter S != emptyset.$）
+  中间两行互为逆否，它们也等价于 $U^0 inter S != emptyset or U inter S^complement != emptyset$。分类讨论可知它等价于 $U^0 != emptyset or x in.not S$：
+  - $x in.not S$ 时，$U inter S^complement supset {x} inter S^complement = {x} != emptyset$，原命题后半部分恒真。
+  - $x in S$ 时，整个命题化为 $U^0 inter S != emptyset or U^0 inter S^complement != emptyset$，即 $U^0 = U^0 inter (S union S^complement) != emptyset$。
   于是这只有 $S$ 中所有点的所有去心邻域都非空时才成立。事实上，若 $x in S$ 存在 $U^0 = emptyset$，那么按定义 $U subset S, U^0 subset S^complement$，于是 $x$ 既是内点又孤立，立即构成反例。
 ]
 
@@ -335,7 +335,7 @@ $X$ 内有一点 $x$，考查 $x$ 的邻域 $U$ 和去心邻域 $U^0 := U withou
 
   由 $RR$ 的构造过程、$QQ$ 可数，立即得到大部分结论；剩下的由可数集之并仍可数，可转为 $RR$ 的性质。
 
-  - 假设 $QQ$ 是 $G_delta$ 集，结合 $RR without QQ$ 是 $G_delta$ 集，得 $emptyset = QQ sect (RR without QQ)$ 也 $G_delta$。
+  - 假设 $QQ$ 是 $G_delta$ 集，结合 $RR without QQ$ 是 $G_delta$ 集，得 $emptyset = QQ inter (RR without QQ)$ 也 $G_delta$。
 
     $emptyset$ 确实 $G_delta$，不过注意 $QQ, RR without QQ$ 都稠密，这不仅导出 $emptyset$ 是开集的可数交，还导出 $emptyset$ 是稠密开集的可数交，这可能吗？
 
@@ -386,11 +386,11 @@ $X$ 内有一点 $x$，考查 $x$ 的邻域 $U$ 和去心邻域 $U^0 := U withou
       {x: f(x) < r}
       &= lim_(n -> +oo) {x: f(x) <= r - 1/n} \
       &= lim_(n -> +oo) op("lim inf", limits: #true)_(k -> +oo) {x: f_k (x) <= r - 1/n} \
-      &= union.big_(n in NN) union.big_(k in NN) sect.big_(k' >= k) {x: f_k' (x) <= r - 1/n}.
+      &= union.big_(n in NN) union.big_(k in NN) inter.big_(k' >= k) {x: f_k' (x) <= r - 1/n}.
       $
       第一个等号是 $union.big_n (-oo, r-1/n] = (-oo, r)$ 两边套 $f^(-1)$，第二个等号是极限的局部保号性，第三个等号是按集合极限的定义重写了一下。
 
-      - 因为 $f_k'$ 连续，$(r-1/n, +oo)$ 的原像总是开集，故 ${x: f_k' (x) <= r - 1/n}$ 总是闭集。作为闭集的任意交，$sect.big_(k' >= k) {x: f_k' (x) <= r - 1/n}$ 仍是闭集。
+      - 因为 $f_k'$ 连续，$(r-1/n, +oo)$ 的原像总是开集，故 ${x: f_k' (x) <= r - 1/n}$ 总是闭集。作为闭集的任意交，$inter.big_(k' >= k) {x: f_k' (x) <= r - 1/n}$ 仍是闭集。
 
       - $NN^2$ 可数，$union.big_n union.big_k$ 仍然是可数并。
 
@@ -412,10 +412,10 @@ Baire空间有如下等价定义。
 
 Baire category theorem指出 $RR$ 是Baire空间，我们从“稠密开集的可数交 $=>$ 稠密”入手证明这一点。
 
-0. 设 $A_n$ 均是稠密开集，要证 $A = sect.big_n A_n$ 稠密，即对任意开集 $O$，$O sect A != emptyset$。
-1. 先考虑 $O sect A_1$。由 $A_1$ 稠密、开，$O sect A_1$ 是非空开集。于是可构造非空闭球 $overline(B_1) subset O sect A_1$。注意 $overline(B_1)$ 的内部 $B_1$ 也是开集，可进一步构造 $overline(B_2) subset B_1 sect A_2$。以此类推，$overline(B_n) subset B_(n-1) sect A_n$。
+0. 设 $A_n$ 均是稠密开集，要证 $A = inter.big_n A_n$ 稠密，即对任意开集 $O$，$O inter A != emptyset$。
+1. 先考虑 $O inter A_1$。由 $A_1$ 稠密、开，$O inter A_1$ 是非空开集。于是可构造非空闭球 $overline(B_1) subset O inter A_1$。注意 $overline(B_1)$ 的内部 $B_1$ 也是开集，可进一步构造 $overline(B_2) subset B_1 inter A_2$。以此类推，$overline(B_n) subset B_(n-1) inter A_n$。
 2. 选取 $B_n$ 时，可让 $B_n$ 的直径小于 $1/n$，保证 $B_n$ 的直径趋于零，从而这些球的中心构成Cauchy列。由 $RR$ 完备，存在极限 $x$。
-3. $O sect A supset sect.big_n overline(B_n) supset {x} != emptyset$，命题得证。
+3. $O inter A supset inter.big_n overline(B_n) supset {x} != emptyset$，命题得证。
 
 #remark[选择公理][
   选取 $B_n$ 的过程需要axiom of dependent choice，可以证明ZF公理体系中，完备度量空间上的Baire category theorem与axiom of dependent choice等价。
@@ -425,7 +425,7 @@ Baire category theorem指出 $RR$ 是Baire空间，我们从“稠密开集的�
   上述证明只用到了“直径趋于零的闭集套交集非空”，可以推广到更抽象的空间。真正的Baire category theorem给出了下面两个没有蕴含关系的充分条件。
   1. 完备的伪度量空间。（从Cauchy列出发）
   2. 局部紧空间。（从闭区间套出发）
-  （直径趋于零是必要的：$sect.big_n [n,+oo) = emptyset$）
+  （直径趋于零是必要的：$inter.big_n [n,+oo) = emptyset$）
 ]
 
 = 这就是现实
@@ -458,7 +458,7 @@ Baire category theorem指出 $RR$ 是Baire空间，我们从“稠密开集的�
 
 3. 论证 *$A$ 稠密*。
 
-  任取 $x in RR$ 及其邻域 $U$，必存在 $I_n subset U$（因为 $QQ$ 稠密），因而 $U sect A supset U sect A_n != emptyset$。
+  任取 $x in RR$ 及其邻域 $U$，必存在 $I_n subset U$（因为 $QQ$ 稠密），因而 $U inter A supset U inter A_n != emptyset$。
 
 4. 再论证*补集 $A^complement$ 也稠密*。
 
